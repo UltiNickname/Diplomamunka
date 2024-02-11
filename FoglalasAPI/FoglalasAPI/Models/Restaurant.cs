@@ -8,13 +8,13 @@ namespace FoglalasAPI.Models
     {
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int RestaurantId { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
         [Required]
-        [ForeignKey("City_Id")]
-        public City CityId { get; set; }
+        [ForeignKey("CityFK")]
+        public City City { get; set; }
         [Required]
         public int Capacity { get; set; }
         [Required]

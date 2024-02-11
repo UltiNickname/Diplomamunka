@@ -104,10 +104,10 @@ namespace FoglalasAPI.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Restaurants");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Restaurants");
         }
     }
 }

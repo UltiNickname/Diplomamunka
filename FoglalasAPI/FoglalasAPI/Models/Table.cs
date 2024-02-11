@@ -5,16 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FoglalasAPI.Models
 {
     [Table("Tables")]
-    [PrimaryKey("Id")]
+    [PrimaryKey("TableId")]
     public class Table
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int TableId { get; set; }
         [Key]
         [Required]
-        [ForeignKey("Restaurant_Id")]
-        public Restaurant RestaurantId { get; set; }
+        [ForeignKey("RestaurantFK")]
+        public Restaurant Restaurant { get; set; }
         [Required]
         public int Size { get; set; }
     }

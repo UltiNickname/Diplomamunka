@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FoglalasAPI.Models
 {
     [Table("Users")]
-    [PrimaryKey("Id")]
+    [PrimaryKey("UserId")]
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Key]
         public string Email { get; set; }
         public string Username { get; set; }
