@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Foglalas.Views.AcceptPopup"
+             CanBeDismissedByTappingOutsideOfPopup="False">
+    <VerticalStackLayout
+        BackgroundColor="White"
+        Padding="10"
+        MinimumWidthRequest="200"
+        Spacing="20">
+        <Label
+            Text=" Foglalás adatai"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"
+            />
+        <Label 
+            Text="{Binding PickedCity}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding PickedRestaurant}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label
+            Text="{Binding GivenSize}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            />
+        <Label
+            Text="{Binding GivenName}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            />
+        <Label
+            Text="{Binding PickedDate}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            />
+        <Label
+            Text="{Binding PickedTime}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            />
+        <Button
+            Text="OK"
+            Clicked="OKButton_Clicked"
+            HorizontalOptions="End"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

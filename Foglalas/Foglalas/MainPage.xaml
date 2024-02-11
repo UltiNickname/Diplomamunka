@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Foglalas.MainPage"
+             xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
+             x:DataType="viewmodel:MainPageViewModel"
+             Title="Home">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Picker 
+                x:Name="CityPicker" 
+                ItemsSource="{Binding Cities}" 
+                Title="Select city" 
+                ItemDisplayBinding="{Binding Name}" 
+                SelectedItem="{Binding SelectedCity}" 
+                Margin="10"/>
+            <Picker 
+                x:Name="RestaurantPicker" 
+                ItemsSource="{Binding Restaurants}" 
+                Title="Select Restaurant" 
+                ItemDisplayBinding="{Binding Name}" 
+                IsEnabled="{Binding IsRestaurantEnabled}" 
+                SelectedItem="{Binding SelectedRestaurant}" 
+                Margin="10"/>
+            <RadioButton Content="Kerthelyiség"/>
+            <RadioButton Content="Különterem"/>
+            <Entry 
+                x:Name="PersonEntry" 
+                Keyboard="Numeric" 
+                Placeholder="Fő" 
+                MaxLength="2" 
+                MaximumWidthRequest="50" 
+                HorizontalOptions="Start" 
+                Text="{Binding GivenSize}"/>
+            <Entry 
+                x:Name="NameEntry" 
+                Keyboard="Text" 
+                Placeholder="Név" 
+                MinimumWidthRequest="200" 
+                MaximumWidthRequest="250" 
+                HorizontalOptions="Start" 
+                Text="{Binding GivenName}"/>
+            <DatePicker 
+                x:Name=" DatePicker" 
+                MinimumDate="{Binding MinDate}" 
+                MaximumDate="{Binding MaxDate}" 
+                Date="{Binding PickedDate}"/>
+            <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedTime}"/>
+            <Button Text="Foglalás" Command="{Binding DisplaySelectedCommand}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

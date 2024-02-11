@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
+             x:DataType="viewmodel:SignUpPageViewModel"
+             x:Class="Foglalas.SignUpPage"
+             Title="Sign up">
+    <ScrollView>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Path HorizontalOptions="Center" Stroke="#fff" Data="m0.00021,0l393.99983,0l0,174.39997c-65.26748,14.53335 -130.53498,29.06669 -195.80247,43.60004c-66.06586,-14.53334 -132.13172,-29.06669 -198.19757,-43.60004l0.00022,-174.39997l-0.00001,0z" Fill="#7f00ff" Aspect="Fill"/>
+            <StackLayout>
+                <Frame BackgroundColor="SkyBlue" HeightRequest="70" WidthRequest="70" CornerRadius="35" Padding="0" Margin="0,100,0,0" HorizontalOptions="Center">
+                    <Image Source="avatar.jpg" Aspect="AspectFill" Margin="0"/>
+                </Frame>
+            </StackLayout>
+            <Grid RowSpacing="5" Grid.Row="1" Margin="20,20,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Text="Register!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
+                <Label Grid.Row="2" Text="Fill all the boxes below" HorizontalOptions="Center" FontSize="Subtitle"/>
+                <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                        <Entry Text="{Binding EmailAddress}" Placeholder="Email" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
+                    </Frame>
+                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                        <Entry Text="{Binding UserName}" Placeholder="Username" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
+                    </Frame>
+                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                        <Entry Text="{Binding Password}" Placeholder="Password" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                    </Frame>
+                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                        <Entry Text="{Binding PasswordAgain}" Placeholder="Password again" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                    </Frame>
+
+                    <Button Text="SIGN UP" BackgroundColor="Purple" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Command="{Binding SignUpCommand}"/>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
+                        <Label Text="Already Registered?" TextColor="DarkGray" FontSize="Small"/>
+                        <Label Text=" Login" TextColor="Purple" FontAttributes="Bold" FontSize="Small">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ToLoginCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>
