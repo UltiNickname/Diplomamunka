@@ -7,6 +7,7 @@ namespace FoglalasAPI.Models
     public class City
     {
         [Key]
+        [Required]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
