@@ -8,6 +8,7 @@ namespace FoglalasAPI.Models
     {
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RestaurantId { get; set; }
         [Required]
         [StringLength(50)]
