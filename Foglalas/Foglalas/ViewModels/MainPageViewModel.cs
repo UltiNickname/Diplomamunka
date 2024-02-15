@@ -81,7 +81,7 @@ namespace Foglalas.ViewModels
                 return;
             if (Restaurants.Count > 0)
                 Restaurants.Clear();
-            Restaurants.AddRange(restaurants.Where(i => i.CityId == id).ToList());
+            Restaurants.AddRange(restaurants.Where(i => i.City.CityId == id).ToList());
         }
 
         [RelayCommand]

@@ -10,19 +10,37 @@ namespace Foglalas.Services
 {
     public partial class CityService : ICityService
     {
-        public Task<List<Restaurant>> Restaurants()
+        public async Task<List<Restaurant>> Restaurants()
         {
-            List<Restaurant> restaurants = new List<Restaurant>()
+            try
             {
-                new Restaurant() {Id = 1, Name="Trófea", CityId=1},
-                new Restaurant() {Id = 2, Name="Fórum", CityId=2},
-                new Restaurant() {Id = 3, Name="West Garden", CityId=2},
-                new Restaurant() {Id = 4, Name="Gekko", CityId=2},
-                new Restaurant() {Id = 5, Name="Marica", CityId=3},
-                new Restaurant() {Id = 6, Name="Fejesvölgy Étterem", CityId=3},
-                new Restaurant() {Id = 7, Name="Sport vendéglő", CityId=3}
-            };
-            return Task.FromResult(restaurants);
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var restaurantList = new List<Restaurant>();
+                    var client = new HttpClient();
+                    string url = "http://localhost:8099/api/restaurant/GetAll";
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        restaurantList = JsonConvert.DeserializeObject<List<Restaurant>>(json);
+                        return restaurantList;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
         }
         public async Task<List<City>> Cities()
         {
