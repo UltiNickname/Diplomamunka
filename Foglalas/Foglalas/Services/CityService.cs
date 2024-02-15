@@ -1,4 +1,5 @@
 ﻿using Foglalas.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,37 @@ namespace Foglalas.Services
             };
             return Task.FromResult(restaurants);
         }
-        public Task<List<City>> Cities()
+        public async Task<List<City>> Cities()
         {
-            List<City> cities = new List<City>()
+            try
             {
-                new City() { Id = 1, Name="Budapest"},
-                new City() { Id = 2, Name="Szombathely"},
-                new City() { Id = 3, Name="Veszprém"}
-            };
-            return Task.FromResult(cities);
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var cityList = new List<City>();
+                    var client = new HttpClient();
+                    string url = "http://localhost:8099/api/city/GetAll";
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        cityList = JsonConvert.DeserializeObject<List<City>>(json);
+                        return cityList;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
         }
     }
 }

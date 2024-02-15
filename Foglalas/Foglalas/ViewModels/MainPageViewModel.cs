@@ -52,7 +52,7 @@ namespace Foglalas.ViewModels
                 {
                     _selectedCity = value;
                     IsRestaurantEnabled = true;
-                    LoadRestaurants(SelectedCity.Id);
+                    LoadRestaurants(SelectedCity.CityId);
                 }
             }
         }
