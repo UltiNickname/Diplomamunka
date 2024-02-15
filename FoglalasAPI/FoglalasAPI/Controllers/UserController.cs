@@ -35,6 +35,7 @@ namespace FoglalasAPI.Controllers
             return (from u in _appDbContext.Users
                     select new User
                     {
+                        UserId = u.UserId,
                         Email = u.Email,
                         Username = u.Username,
                         Password = u.Password
