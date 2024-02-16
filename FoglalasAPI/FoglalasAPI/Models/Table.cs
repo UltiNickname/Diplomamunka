@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace FoglalasAPI.Models
 {
@@ -8,8 +9,7 @@ namespace FoglalasAPI.Models
     [PrimaryKey("TableId", "RestaurantFK")]
     public class Table
     {
-        [Key, Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Column(Order = 0)]
         public int TableId { get; set; }
         [Key, Column(Order = 1)]
         [Required]
