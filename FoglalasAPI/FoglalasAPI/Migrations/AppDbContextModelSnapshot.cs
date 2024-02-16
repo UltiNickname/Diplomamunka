@@ -76,11 +76,8 @@ namespace FoglalasAPI.Migrations
             modelBuilder.Entity("FoglalasAPI.Models.Table", b =>
                 {
                     b.Property<int>("TableId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnOrder(1);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TableId"));
+                        .HasColumnOrder(0);
 
                     b.Property<int>("RestaurantFK")
                         .HasColumnType("integer");
@@ -88,7 +85,7 @@ namespace FoglalasAPI.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
-                    b.HasKey("TableId");
+                    b.HasKey("TableId", "RestaurantFK");
 
                     b.HasIndex("RestaurantFK");
 

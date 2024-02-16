@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240216231747_init")]
+    [Migration("20240216233559_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -79,11 +79,8 @@ namespace FoglalasAPI.Migrations
             modelBuilder.Entity("FoglalasAPI.Models.Table", b =>
                 {
                     b.Property<int>("TableId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnOrder(1);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TableId"));
+                        .HasColumnOrder(0);
 
                     b.Property<int>("RestaurantFK")
                         .HasColumnType("integer");
@@ -91,7 +88,7 @@ namespace FoglalasAPI.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
-                    b.HasKey("TableId");
+                    b.HasKey("TableId", "RestaurantFK");
 
                     b.HasIndex("RestaurantFK");
 

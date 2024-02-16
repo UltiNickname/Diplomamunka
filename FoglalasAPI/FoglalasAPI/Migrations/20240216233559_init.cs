@@ -67,14 +67,13 @@ namespace FoglalasAPI.Migrations
                 name: "Tables",
                 columns: table => new
                 {
-                    TableId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TableId = table.Column<int>(type: "integer", nullable: false),
                     RestaurantFK = table.Column<int>(type: "integer", nullable: false),
                     Size = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tables", x => x.TableId);
+                    table.PrimaryKey("PK_Tables", x => new { x.TableId, x.RestaurantFK });
                     table.ForeignKey(
                         name: "FK_Tables_Restaurants_RestaurantFK",
                         column: x => x.RestaurantFK,
