@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240214200956_init")]
+    [Migration("20240216230631_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -90,7 +90,7 @@ namespace FoglalasAPI.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
-                    b.HasKey("TableId");
+                    b.HasKey("TableId", "RestaurantFK");
 
                     b.HasIndex("RestaurantFK");
 
