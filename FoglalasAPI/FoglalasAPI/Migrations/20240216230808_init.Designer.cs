@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240216230631_init")]
+    [Migration("20240216230808_init")]
     partial class init
     {
         /// <inheritdoc />
