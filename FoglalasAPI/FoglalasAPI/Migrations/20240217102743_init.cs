@@ -47,7 +47,6 @@ namespace FoglalasAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CityFK = table.Column<int>(type: "integer", nullable: false),
-                    Capacity = table.Column<int>(type: "integer", nullable: false),
                     Outdoor = table.Column<bool>(type: "boolean", nullable: false),
                     SeperateRoom = table.Column<bool>(type: "boolean", nullable: false),
                     FixedTables = table.Column<bool>(type: "boolean", nullable: false)
@@ -64,22 +63,23 @@ namespace FoglalasAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tables",
+                name: "Table",
                 columns: table => new
                 {
-                    TableId = table.Column<int>(type: "integer", nullable: false),
-                    RestaurantFK = table.Column<int>(type: "integer", nullable: false),
-                    Size = table.Column<int>(type: "integer", nullable: false)
+                    TableId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Size = table.Column<int>(type: "integer", nullable: false),
+                    available = table.Column<bool>(type: "boolean", nullable: false),
+                    RestaurantId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tables", x => new { x.TableId, x.RestaurantFK });
+                    table.PrimaryKey("PK_Table", x => x.TableId);
                     table.ForeignKey(
-                        name: "FK_Tables_Restaurants_RestaurantFK",
-                        column: x => x.RestaurantFK,
+                        name: "FK_Table_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "RestaurantId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "RestaurantId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -88,16 +88,16 @@ namespace FoglalasAPI.Migrations
                 column: "CityFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tables_RestaurantFK",
-                table: "Tables",
-                column: "RestaurantFK");
+                name: "IX_Table_RestaurantId",
+                table: "Table",
+                column: "RestaurantId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tables");
+                name: "Table");
 
             migrationBuilder.DropTable(
                 name: "Users");
