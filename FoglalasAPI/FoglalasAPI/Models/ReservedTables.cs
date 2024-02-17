@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoglalasAPI.Models
 {
-    [PrimaryKey("Reservation", "Table")]
     public class ReservedTables
     {
         [Required]
