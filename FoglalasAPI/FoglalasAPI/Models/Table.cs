@@ -10,7 +10,5 @@ namespace FoglalasAPI.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TableId { get; set; }
         public int Size { get; set; }
-        [ForeignKey("RestaurantFK")]
-        public Restaurant Restaurant { get; set; }
     }
 }
