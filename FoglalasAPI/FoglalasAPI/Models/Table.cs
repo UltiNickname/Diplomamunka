@@ -9,13 +9,15 @@ namespace FoglalasAPI.Models
     [PrimaryKey("TableId", "RestaurantFK")]
     public class Table
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TableId { get; set; }
+        [Key]
         [Required]
         [ForeignKey("RestaurantFK")]
         public Restaurant Restaurant { get; set; }
-        [Key, Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TableId { get; set; }
+
         [Required]
         public int Size { get; set; }
     }
