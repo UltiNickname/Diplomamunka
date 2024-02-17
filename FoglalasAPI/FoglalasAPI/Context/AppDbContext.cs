@@ -9,6 +9,5 @@ namespace FoglalasAPI.Context
         public DbSet<User> Users { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Restaurant> Restaurants { get; set;}
-        public DbSet<Table> Tables { get; set; }
     }
 }
