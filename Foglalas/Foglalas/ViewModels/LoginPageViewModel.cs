@@ -15,7 +15,7 @@ namespace Foglalas.ViewModels
     public partial class LoginPageViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private string _userName;
+        private string _email;
         [ObservableProperty]
         private string _password;
 
@@ -24,9 +24,9 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async void Login()
         {
-            if (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password))
+            if (!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
             {
-                User userInfo = await loginService.Login(UserName, Password);
+                User userInfo = await loginService.Login(Email, Password);
                 if (userInfo != null)
                 {
                     if (Preferences.ContainsKey(nameof(App.User)))

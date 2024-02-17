@@ -13,7 +13,7 @@ namespace Foglalas.Services
 {
     public class LoginService : ILoginService
     {
-        public async Task<User> Login(string username, string password)
+        public async Task<User> Login(string email, string password)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace Foglalas.Services
                 {
                     var userInfo = new List<User>();
                     var client = new HttpClient();
-                    string url = "http://localhost:8099/api/user/Login/"+username+"/"+password;
+                    string url = "http://localhost:8099/api/user/Login/"+email+ "/"+password;
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if(response.IsSuccessStatusCode)
