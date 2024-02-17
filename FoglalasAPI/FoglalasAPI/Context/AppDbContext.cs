@@ -11,5 +11,6 @@ namespace FoglalasAPI.Context
         public DbSet<Restaurant> Restaurants { get; set;}
         public DbSet<Table> Tables { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<RestaurantTables> RestaurantTables { get; set; }
     }
 }
