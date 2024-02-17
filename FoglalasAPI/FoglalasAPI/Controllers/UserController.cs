@@ -44,13 +44,13 @@ namespace FoglalasAPI.Controllers
 
         [HttpGet]
         [Route("Login/{userName}/{userPassword}")]
-        public async Task<ActionResult<User>> Login(string userName, string userPassword) 
+        public async Task<ActionResult<User>> Login(string email, string userPassword) 
         {
             if((_appDbContext.Users == null))
             {
                 return NotFound();
             }
-            var userInfo = _appDbContext.Users.Where(u => u.Username == userName && u.Password == userPassword);
+            var userInfo = _appDbContext.Users.Where(u => u.Email == email && u.Password == userPassword);
             if(userInfo == null)
             {
                 return NotFound();
