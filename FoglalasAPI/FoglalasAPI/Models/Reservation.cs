@@ -18,9 +18,6 @@ namespace FoglalasAPI.Models
         [Required]
         public int Size { get; set; }
         [Required]
-        [ForeignKey("TableFK")]
-        public Table Table { get; set; }
-        [Required]
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime FinishedTime { get; set; }
