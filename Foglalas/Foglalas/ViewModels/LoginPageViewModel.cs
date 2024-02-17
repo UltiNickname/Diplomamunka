@@ -27,17 +27,28 @@ namespace Foglalas.ViewModels
             if (!string.IsNullOrWhiteSpace(UserName) && !string.IsNullOrWhiteSpace(Password))
             {
                 User userInfo = await loginService.Login(UserName, Password);
-
-                if(Preferences.ContainsKey(nameof(App.User)))
+                if (userInfo != null)
                 {
-                    Preferences.Remove(nameof(App.User));
+                    if (Preferences.ContainsKey(nameof(App.User)))
+                    {
+                        Preferences.Remove(nameof(App.User));
+                    }
+
+                    string userDetails = JsonSerializer.Serialize(userInfo);
+                    Preferences.Set(nameof(App.User), userDetails);
+                    App.User = userInfo;
+
+                    await Shell.Current.GoToAsync(nameof(MainPage));
                 }
-
-                string userDetails=JsonSerializer.Serialize(userInfo);
-                Preferences.Set(nameof(App.User), userDetails);
-                App.User = userInfo;
-
-                await Shell.Current.GoToAsync(nameof(MainPage));
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error!", "Wrong creditentials!", "OK");
+                }
+                
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Alert!", "Fill all the necessary fields!", "OK");
             }
         }
 
