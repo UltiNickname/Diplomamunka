@@ -16,7 +16,8 @@ namespace FoglalasAPI.Models
         [ForeignKey("UserFK")]
         public User User { get; set; }
         [Required]
-        public List<Table> ReservedTables { get; set; }
+        [ForeignKey("TableFK")]
+        public Table Table { get; set; }
         [Required]
         public int Size { get; set; }
         [Required]

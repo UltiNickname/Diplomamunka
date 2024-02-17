@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240217103807_init")]
+    [Migration("20240217123136_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -68,12 +68,17 @@ namespace FoglalasAPI.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("TableFK")
+                        .HasColumnType("integer");
+
                     b.Property<int>("UserFK")
                         .HasColumnType("integer");
 
                     b.HasKey("ReservationId");
 
                     b.HasIndex("RestaurantFK");
+
+                    b.HasIndex("TableFK");
 
                     b.HasIndex("UserFK");
 
@@ -120,23 +125,15 @@ namespace FoglalasAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TableId"));
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("RestaurantId")
+                    b.Property<int>("RestaurantFK")
                         .HasColumnType("integer");
 
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("available")
-                        .HasColumnType("boolean");
-
                     b.HasKey("TableId");
 
-                    b.HasIndex("ReservationId");
-
-                    b.HasIndex("RestaurantId");
+                    b.HasIndex("RestaurantFK");
 
                     b.ToTable("Tables");
                 });
@@ -174,6 +171,12 @@ namespace FoglalasAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FoglalasAPI.Models.Table", "Table")
+                        .WithMany()
+                        .HasForeignKey("TableFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FoglalasAPI.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserFK")
@@ -181,6 +184,8 @@ namespace FoglalasAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Restaurant");
+
+                    b.Navigation("Table");
 
                     b.Navigation("User");
                 });
@@ -198,23 +203,13 @@ namespace FoglalasAPI.Migrations
 
             modelBuilder.Entity("FoglalasAPI.Models.Table", b =>
                 {
-                    b.HasOne("FoglalasAPI.Models.Reservation", null)
-                        .WithMany("ReservedTables")
-                        .HasForeignKey("ReservationId");
+                    b.HasOne("FoglalasAPI.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("FoglalasAPI.Models.Restaurant", null)
-                        .WithMany("Tables")
-                        .HasForeignKey("RestaurantId");
-                });
-
-            modelBuilder.Entity("FoglalasAPI.Models.Reservation", b =>
-                {
-                    b.Navigation("ReservedTables");
-                });
-
-            modelBuilder.Entity("FoglalasAPI.Models.Restaurant", b =>
-                {
-                    b.Navigation("Tables");
+                    b.Navigation("Restaurant");
                 });
 #pragma warning restore 612, 618
         }

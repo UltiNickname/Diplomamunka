@@ -22,7 +22,5 @@ namespace FoglalasAPI.Models
         public bool SeperateRoom { get; set; }
         [Required]
         public bool FixedTables { get; set; }
-        [Required]
-        public List<Table> Tables { get; set; }
     }
 }

@@ -7,8 +7,10 @@ namespace FoglalasAPI.Models
 {
     public class Table
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TableId { get; set; }
         public int Size { get; set; }
-        public bool available { get; set; }
+        [ForeignKey("RestaurantFK")]
+        public Restaurant Restaurant { get; set; }
     }
 }
