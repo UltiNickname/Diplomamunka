@@ -39,6 +39,44 @@ namespace FoglalasAPI.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("FoglalasAPI.Models.Reservation", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ReservationId"));
+
+                    b.Property<DateTime>("FinishedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Outdoor")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("RestaurantFK")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("SeperateRoom")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UserFK")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("RestaurantFK");
+
+                    b.HasIndex("UserFK");
+
+                    b.ToTable("Reservations");
+                });
+
             modelBuilder.Entity("FoglalasAPI.Models.Restaurant", b =>
                 {
                     b.Property<int>("RestaurantId")
@@ -79,6 +117,9 @@ namespace FoglalasAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TableId"));
 
+                    b.Property<int?>("ReservationId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("RestaurantId")
                         .HasColumnType("integer");
 
@@ -90,9 +131,11 @@ namespace FoglalasAPI.Migrations
 
                     b.HasKey("TableId");
 
+                    b.HasIndex("ReservationId");
+
                     b.HasIndex("RestaurantId");
 
-                    b.ToTable("Table");
+                    b.ToTable("Tables");
                 });
 
             modelBuilder.Entity("FoglalasAPI.Models.User", b =>
@@ -120,6 +163,25 @@ namespace FoglalasAPI.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FoglalasAPI.Models.Reservation", b =>
+                {
+                    b.HasOne("FoglalasAPI.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoglalasAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FoglalasAPI.Models.Restaurant", b =>
                 {
                     b.HasOne("FoglalasAPI.Models.City", "City")
@@ -133,9 +195,18 @@ namespace FoglalasAPI.Migrations
 
             modelBuilder.Entity("FoglalasAPI.Models.Table", b =>
                 {
+                    b.HasOne("FoglalasAPI.Models.Reservation", null)
+                        .WithMany("ReservedTables")
+                        .HasForeignKey("ReservationId");
+
                     b.HasOne("FoglalasAPI.Models.Restaurant", null)
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantId");
+                });
+
+            modelBuilder.Entity("FoglalasAPI.Models.Reservation", b =>
+                {
+                    b.Navigation("ReservedTables");
                 });
 
             modelBuilder.Entity("FoglalasAPI.Models.Restaurant", b =>
