@@ -43,7 +43,7 @@ namespace FoglalasAPI.Controllers
         }
 
         [HttpGet]
-        [Route("Login/{userName}/{userPassword}")]
+        [Route("Login/{email}/{userPassword}")]
         public async Task<ActionResult<User>> Login(string email, string userPassword) 
         {
             if((_appDbContext.Users == null))
