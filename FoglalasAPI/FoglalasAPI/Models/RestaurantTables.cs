@@ -13,5 +13,7 @@ namespace FoglalasAPI.Models
         [Required]
         [ForeignKey("TableFK")]
         public int TableId { get; set; }
+        [Required]
+        public int Count { get; set; }
     }
 }
