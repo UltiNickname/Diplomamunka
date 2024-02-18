@@ -29,6 +29,9 @@ namespace FoglalasAPI.Controllers
                         RestaurantId = r.RestaurantId,
                         Name = r.Name,
                         City = r.City,
+                        Outdoor = r.Outdoor,
+                        SeperateRoom = r.SeperateRoom,
+                        FixedTables = r.FixedTables
                     }).ToList();
         }
     }
