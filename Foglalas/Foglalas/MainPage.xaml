@@ -22,8 +22,12 @@
                 IsEnabled="{Binding IsRestaurantEnabled}" 
                 SelectedItem="{Binding SelectedRestaurant}" 
                 Margin="10"/>
-            <RadioButton Content="Kerthelyiség"/>
-            <RadioButton Content="Különterem"/>
+            <RadioButton 
+                Content="Kerthelyiség"
+                IsEnabled="{Binding IsTerraceEnable}"/>
+            <RadioButton 
+                Content="Különterem"
+                IsEnabled="{Binding IsSeperateRoomEnable}"/>
             <Entry 
                 x:Name="PersonEntry" 
                 Keyboard="Numeric" 

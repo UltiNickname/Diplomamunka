@@ -19,9 +19,6 @@ namespace Foglalas.ViewModels
         public ICityService cityService = new CityService();
 
         [ObservableProperty]
-        Restaurant _selectedRestaurant;
-
-        [ObservableProperty]
         string _givenSize;
 
         [ObservableProperty]
@@ -35,6 +32,12 @@ namespace Foglalas.ViewModels
 
         [ObservableProperty]
         bool _isRestaurantEnabled;
+
+        [ObservableProperty]
+        bool _isTerraceEnable;
+
+        [ObservableProperty]
+        bool _isSeperateRoomEnable;
 
         [ObservableProperty]
         DateTime _minDate = DateTime.Today.AddDays(1);
@@ -56,11 +59,31 @@ namespace Foglalas.ViewModels
                 }
             }
         }
+
+        private Restaurant _selectedRestaurant;
+        public Restaurant SelectedRestaurant
+        {
+            get { return _selectedRestaurant; }
+            set
+            {
+                if (_selectedRestaurant != value)
+                {
+                    _selectedRestaurant = value;
+                    if(_selectedRestaurant != null)
+                    {
+                        IsTerraceEnable = _selectedRestaurant.Outdoor;
+                        IsSeperateRoomEnable = _selectedRestaurant.SeperateRoom;
+                    }
+                }
+            }
+        }
         public ObservableRangeCollection<City> Cities { get; set; } = new();
         public ObservableRangeCollection<Restaurant> Restaurants { get; set; } = new();
         public MainPageViewModel(ICityService cityService) 
         {
             LoadCities();
+            IsRestaurantEnabled = false;
+            IsTerraceEnable = false;
             IsRestaurantEnabled = false;
             this.cityService = cityService;
         }
