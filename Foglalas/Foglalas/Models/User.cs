@@ -9,11 +9,9 @@ namespace Foglalas.Models
 {
     public class User
     {
-        [Column("email")]
+        public int UserId { get; set; }
         public string Email { get; set; }
-        [Column("username")]
         public string Username { get; set; }
-        [Column("password")]
         public string Password { get; set; }
 
     }
