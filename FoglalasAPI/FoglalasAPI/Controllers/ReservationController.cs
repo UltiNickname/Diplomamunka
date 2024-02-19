@@ -28,10 +28,16 @@ namespace FoglalasAPI.Controllers
             _logger = logger;
         }
 
+        public bool ReservationRepeated(Reservation reservation)
+        {
+            return _appDbContext.Reservations.Where(r => r.Equals(reservation)).Any();
+        }
+
         [HttpPost]
         [Route("AddNewReservation")]
         public async Task<IActionResult> SaveReservation(Reservation reservation)
         {
+            if(ReservationRepeated(reservation))
             _appDbContext.Reservations.Add(reservation);
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
