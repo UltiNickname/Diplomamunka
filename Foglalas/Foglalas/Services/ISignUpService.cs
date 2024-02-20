@@ -9,6 +9,6 @@ namespace Foglalas.Services
 {
     public interface ISignUpService
     {
-        Task<string> SignUp(User user);
+        public Task<string> SignUp(User user);
     }
 }

@@ -9,6 +9,6 @@ namespace Foglalas.Services
 {
     public interface IReservationService
     {
-        Task<string> Reserve(Restaurant restaurant, User user, int size, DateTime date, bool outdoor, bool seperate);
+        public Task<string> Reserve(Reservation reservation);
     }
 }
