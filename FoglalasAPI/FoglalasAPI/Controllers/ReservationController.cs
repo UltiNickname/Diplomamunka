@@ -37,7 +37,8 @@ namespace FoglalasAPI.Controllers
         [Route("AddNewReservation")]
         public async Task<IActionResult> SaveReservation(Reservation reservation)
         {
-            if(ReservationRepeated(reservation))
+            if (ReservationRepeated(reservation))
+                return BadRequest("This reservation is already exist");
             _appDbContext.Reservations.Add(reservation);
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
