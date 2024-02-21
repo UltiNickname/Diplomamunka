@@ -23,7 +23,7 @@ namespace Foglalas.Services
                     string url = "http://localhost:8099/api/reservation/AddNewReservation";
                     client.BaseAddress = new Uri(url);
                     var body = JsonConvert.SerializeObject(reservation);
-                    HttpResponseMessage response = await client.PostAsJsonAsync(url, reservation);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(url, body);
                     if (response.IsSuccessStatusCode)
                     {
                         return "Reservation successfull!";
