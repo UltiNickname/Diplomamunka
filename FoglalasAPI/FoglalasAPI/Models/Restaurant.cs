@@ -16,7 +16,7 @@ namespace FoglalasAPI.Models
         public string Name { get; set; }
         [Required]
         [ForeignKey("CityFK")]
-        public City City { get; set; }
+        public int CityId { get; set; }
         [Required]
         public bool Outdoor { get; set; }
         [Required]

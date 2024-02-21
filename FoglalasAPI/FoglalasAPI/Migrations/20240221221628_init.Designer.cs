@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240221221333_init")]
+    [Migration("20240221221628_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -59,7 +59,7 @@ namespace FoglalasAPI.Migrations
                     b.Property<bool>("Outdoor")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Restaurant")
+                    b.Property<int>("RestaurantFK")
                         .HasColumnType("integer");
 
                     b.Property<bool>("SeperateRoom")
@@ -71,10 +71,14 @@ namespace FoglalasAPI.Migrations
                     b.Property<TimeOnly>("StartTime")
                         .HasColumnType("time without time zone");
 
-                    b.Property<int>("User")
+                    b.Property<int>("UserFK")
                         .HasColumnType("integer");
 
                     b.HasKey("ReservationId");
+
+                    b.HasIndex("RestaurantFK");
+
+                    b.HasIndex("UserFK");
 
                     b.ToTable("Reservations");
                 });
@@ -103,7 +107,7 @@ namespace FoglalasAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RestaurantId"));
 
-                    b.Property<int>("City")
+                    b.Property<int>("CityFK")
                         .HasColumnType("integer");
 
                     b.Property<bool>("FixedTables")
@@ -121,6 +125,8 @@ namespace FoglalasAPI.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("RestaurantId");
+
+                    b.HasIndex("CityFK");
 
                     b.ToTable("Restaurants");
                 });
@@ -180,6 +186,36 @@ namespace FoglalasAPI.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FoglalasAPI.Models.Reservation", b =>
+                {
+                    b.HasOne("FoglalasAPI.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoglalasAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FoglalasAPI.Models.Restaurant", b =>
+                {
+                    b.HasOne("FoglalasAPI.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
                 });
 #pragma warning restore 612, 618
         }
