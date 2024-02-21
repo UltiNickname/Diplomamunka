@@ -21,7 +21,7 @@ namespace FoglalasAPI.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public IEnumerable<Restaurant> GetAllUsers()
+        public IEnumerable<Restaurant> GetAllRestaurants()
         {
             return (from r in _appDbContext.Restaurants
                     select new Restaurant
