@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240217150235_init")]
+    [Migration("20240221201501_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -50,8 +50,11 @@ namespace FoglalasAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ReservationId"));
 
-                    b.Property<DateTime>("FinishedTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("FinishedTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<bool>("Outdoor")
                         .HasColumnType("boolean");
@@ -65,8 +68,8 @@ namespace FoglalasAPI.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<int>("UserFK")
                         .HasColumnType("integer");

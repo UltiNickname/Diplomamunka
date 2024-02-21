@@ -111,8 +111,9 @@ namespace FoglalasAPI.Migrations
                     RestaurantFK = table.Column<int>(type: "integer", nullable: false),
                     UserFK = table.Column<int>(type: "integer", nullable: false),
                     Size = table.Column<int>(type: "integer", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FinishedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    StartTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    FinishedTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     Outdoor = table.Column<bool>(type: "boolean", nullable: false),
                     SeperateRoom = table.Column<bool>(type: "boolean", nullable: false)
                 },
