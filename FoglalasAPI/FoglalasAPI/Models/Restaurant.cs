@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoglalasAPI.Models
@@ -9,13 +10,13 @@ namespace FoglalasAPI.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Restaurant RestaurantId { get; set; }
+        public int RestaurantId { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
         [Required]
         [ForeignKey("CityFK")]
-        public City City { get; set; }
+        public int City { get; set; }
         [Required]
         public bool Outdoor { get; set; }
         [Required]
