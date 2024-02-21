@@ -24,13 +24,13 @@ namespace Foglalas.ViewModels
         readonly ISignUpService signUpService = new SignUpService();
 
         [RelayCommand]
-        public async void ToLogin()
+        public async Task ToLogin()
         {
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
 
         [RelayCommand]
-        public async void SignUp()
+        public async Task SignUp()
         {
             if (!string.IsNullOrWhiteSpace(UserName) && 
                 !string.IsNullOrWhiteSpace(Password) &&

@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Foglalas.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Foglalas.ViewModels
 {
     public partial class AcceptPopupViewModel : ObservableObject
     {
-        public string PickedCity { get; set; }
-        public string PickedRestaurant { get; set; }
-        public string GivenSize { get; set; }
+        public City PickedCity { get; set; }
+        public Restaurant PickedRestaurant { get; set; }
+        public int GivenSize { get; set; }
         public string GivenName { get; set; }
-        public string PickedDate { get; set; }
+        public DateTime PickedDate { get; set; }
     }
 }

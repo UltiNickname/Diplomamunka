@@ -108,22 +108,22 @@ namespace Foglalas.ViewModels
         }
 
         [RelayCommand]
-        public void DisplaySelected()
+        public async Task DisplaySelected()
         {
             if (SelectedCity != null && SelectedRestaurant != null)
             {
                 PickedDate=PickedDate.Add(PickedTime);
                 AcceptPopupViewModel acceptPopupViewModel = new AcceptPopupViewModel()
                 {
-                    PickedCity = this.SelectedCity.Name,
-                    PickedRestaurant = this.SelectedRestaurant.Name,
-                    GivenSize = this.GivenSize,
+                    PickedCity = this.SelectedCity,
+                    PickedRestaurant = this.SelectedRestaurant,
+                    GivenSize = int.Parse(this.GivenSize),
                     GivenName = this.GivenName,
-                    PickedDate = this.PickedDate.ToString(),
+                    PickedDate = this.PickedDate
                 };
                 var popup = new AcceptPopup(acceptPopupViewModel);
 
-                Shell.Current.ShowPopupAsync(popup);
+                await Shell.Current.ShowPopupAsync(popup);
             }
             else
             {
@@ -133,7 +133,7 @@ namespace Foglalas.ViewModels
                 };
                 var popup = new DeniedPopup(deniedPopupViewModel);
 
-                Shell.Current.ShowPopupAsync(popup);
+                await Shell.Current.ShowPopupAsync(popup);
             }
         }
     }

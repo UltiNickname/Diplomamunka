@@ -44,7 +44,7 @@
             />
         <Button
             Text="OK"
-            Clicked="OKButton_Clicked"
+            Command="{Binding MakeReservation}"
             HorizontalOptions="End"/>
     </VerticalStackLayout>
 </toolkit:Popup>
