@@ -50,7 +50,7 @@
                 MaximumDate="{Binding MaxDate}" 
                 Date="{Binding PickedDate}"/>
             <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedTime}"/>
-            <Button Text="Foglalás" Command="{Binding DisplaySelectedCommand}"/>
+            <Button Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

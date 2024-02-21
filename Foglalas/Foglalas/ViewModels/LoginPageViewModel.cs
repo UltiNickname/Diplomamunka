@@ -22,7 +22,7 @@ namespace Foglalas.ViewModels
         readonly ILoginService loginService = new LoginService();
 
         [RelayCommand]
-        public async void Login()
+        public async Task Login()
         {
             if (!string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password))
             {
@@ -53,7 +53,7 @@ namespace Foglalas.ViewModels
         }
 
         [RelayCommand]
-        public async void ToSignUp()
+        public async Task ToSignUp()
         {
             await Shell.Current.GoToAsync(nameof(SignUpPage));
         }

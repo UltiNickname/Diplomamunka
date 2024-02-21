@@ -108,22 +108,11 @@ namespace Foglalas.ViewModels
         }
 
         [RelayCommand]
-        public async Task DisplaySelected()
+        public async Task MakeReservation()
         {
             if (SelectedCity != null && SelectedRestaurant != null)
             {
-                PickedDate=PickedDate.Add(PickedTime);
-                AcceptPopupViewModel acceptPopupViewModel = new AcceptPopupViewModel()
-                {
-                    PickedCity = this.SelectedCity,
-                    PickedRestaurant = this.SelectedRestaurant,
-                    GivenSize = int.Parse(this.GivenSize),
-                    GivenName = this.GivenName,
-                    PickedDate = this.PickedDate
-                };
-                var popup = new AcceptPopup(acceptPopupViewModel);
 
-                await Shell.Current.ShowPopupAsync(popup);
             }
             else
             {
