@@ -16,5 +16,11 @@ namespace Foglalas.ViewModels
         public int GivenSize { get; set; }
         public string GivenName { get; set; }
         public DateTime PickedDate { get; set; }
+
+        [RelayCommand]
+        public async Task MakeReservation(Reservation reservation)
+        {
+
+        }
     }
 }

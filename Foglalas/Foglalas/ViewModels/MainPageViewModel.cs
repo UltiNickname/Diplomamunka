@@ -19,31 +19,31 @@ namespace Foglalas.ViewModels
         public ICityService cityService = new CityService();
 
         [ObservableProperty]
-        string _givenSize;
+        private string _givenSize;
 
         [ObservableProperty]
-        string _givenName;
+        private string _givenName;
 
         [ObservableProperty]
-        DateTime _pickedDate;
+        private DateTime _pickedDate;
 
         [ObservableProperty]
-        TimeSpan _pickedTime;
+        private TimeSpan _pickedTime;
 
         [ObservableProperty]
-        bool _isRestaurantEnabled;
+        private bool _isRestaurantEnabled;
 
         [ObservableProperty]
-        bool _isTerraceEnable;
+        private bool _isTerraceEnable;
 
         [ObservableProperty]
-        bool _isSeperateRoomEnable;
+        private bool _isSeperateRoomEnable;
 
         [ObservableProperty]
-        DateTime _minDate = DateTime.Today.AddDays(1);
+        private DateTime _minDate = DateTime.Today.AddDays(1);
 
         [ObservableProperty]
-        DateTime _maxDate = DateTime.Today.AddDays(10);
+        private DateTime _maxDate = DateTime.Today.AddDays(10);
 
         private City _selectedCity;
         public City SelectedCity
