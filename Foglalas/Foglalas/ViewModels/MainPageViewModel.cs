@@ -108,7 +108,7 @@ namespace Foglalas.ViewModels
         }
 
         [RelayCommand]
-        public void MakeReservation()
+        public void DisplaySelected()
         {
             if (SelectedCity != null && SelectedRestaurant != null)
             {
