@@ -144,8 +144,9 @@ namespace Foglalas.ViewModels
                         Restaurant = SelectedRestaurant,
                         User = App.User,
                         Size = int.Parse(GivenSize),
-                        StartTime = PickedDate.Add(PickedTime),
-                        FinishedTime = PickedDate.Add(PickedTime).AddMinutes(int.Parse(GivenSize) * 30),
+                        Date = DateOnly.FromDateTime(PickedDate),
+                        StartTime = PickedTime,
+                        FinishedTime = PickedTime.Add(new TimeSpan(0, 0, int.Parse(GivenSize)*20, 0)),
                         Outdoor = od,
                         SeperateRoom = sr
                     };

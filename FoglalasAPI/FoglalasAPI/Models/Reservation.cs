@@ -18,9 +18,11 @@ namespace FoglalasAPI.Models
         [Required]
         public int Size { get; set; }
         [Required]
-        public DateTime StartTime { get; set; }
+        public DateOnly Date { get; set; }
         [Required]
-        public DateTime FinishedTime { get; set; }
+        public TimeOnly StartTime { get; set; }
+        [Required]
+        public TimeOnly FinishedTime { get; set; }
         [Required]
         public bool Outdoor { get; set; }
         [Required]
