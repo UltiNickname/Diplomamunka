@@ -13,13 +13,13 @@ namespace Foglalas.ViewModels
     public partial class SignUpPageViewModel : BaseViewModel
     {
         [ObservableProperty]
-        public string _emailAddress;
+        private string _emailAddress;
         [ObservableProperty]
-        public string _userName;
+        private string _userName;
         [ObservableProperty]
-        public string _password;
+        private string _password;
         [ObservableProperty]
-        public string _passwordAgain;
+        private string _passwordAgain;
 
         readonly ISignUpService signUpService = new SignUpService();
 

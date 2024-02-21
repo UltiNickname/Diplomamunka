@@ -112,7 +112,12 @@ namespace Foglalas.ViewModels
         {
             if (SelectedCity != null && SelectedRestaurant != null)
             {
+                ReservationService reservationService = new ReservationService();
+                Reservation reservation = new Reservation()
+                {
+                    Restaurant = SelectedRestaurant
 
+                };
             }
             else
             {
