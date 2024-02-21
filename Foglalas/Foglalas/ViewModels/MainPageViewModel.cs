@@ -25,6 +25,9 @@ namespace Foglalas.ViewModels
         private string _givenName;
 
         [ObservableProperty]
+        private string _position;
+
+        [ObservableProperty]
         private DateTime _pickedDate;
 
         [ObservableProperty]
@@ -113,11 +116,40 @@ namespace Foglalas.ViewModels
             if (SelectedCity != null && SelectedRestaurant != null)
             {
                 ReservationService reservationService = new ReservationService();
-                Reservation reservation = new Reservation()
-                {
-                    Restaurant = SelectedRestaurant
 
+                bool od, sr;
+                if(Position == null)
+                {
+                    od = false; sr = false;
+                }
+                else if(Position == "Terrace")
+                {
+                    od = true; sr = false;
+                }
+                else
+                {
+                    od = false; sr = true;
+                }
+
+                Reservation newReservation = new Reservation()
+                {
+                    Restaurant = SelectedRestaurant,
+                    User = App.User,
+                    Size = int.Parse(GivenSize),
+                    StartTime = PickedDate,
+                    FinishedTime = PickedDate.AddMinutes(int.Parse(GivenSize)*30),
+                    Outdoor = od,
+                    SeperateRoom = sr
                 };
+                string reservationInfo = await reservationService.Reserve(newReservation);
+                if(reservationInfo == "Reservation saved!")
+                {
+                    await Shell.Current.DisplayAlert("Success!", "Rerevation has been made!", "OK");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Alert!", "Error", "OK");
+                }
             }
             else
             {

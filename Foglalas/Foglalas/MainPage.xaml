@@ -22,12 +22,19 @@
                 IsEnabled="{Binding IsRestaurantEnabled}" 
                 SelectedItem="{Binding SelectedRestaurant}" 
                 Margin="10"/>
-            <RadioButton 
-                Content="Kerthelyiség"
-                IsEnabled="{Binding IsTerraceEnable}"/>
-            <RadioButton 
-                Content="Különterem"
-                IsEnabled="{Binding IsSeperateRoomEnable}"/>
+            <StackLayout
+                RadioButtonGroup.SelectedValue="{Binding Position}">
+                <RadioButton 
+                    Content="Kerthelyiség"
+                    IsEnabled="{Binding IsTerraceEnable}"
+                    Value="Terrace"
+                    GroupName="Positions"/>
+                <RadioButton 
+                    Content="Különterem"
+                    IsEnabled="{Binding IsSeperateRoomEnable}"
+                    Value="SeperateRoom"
+                    GroupName="Positions"/>
+                </StackLayout>
             <Entry 
                 x:Name="PersonEntry" 
                 Keyboard="Numeric" 
