@@ -107,7 +107,7 @@ namespace Foglalas.ViewModels
                 return;
             if (Restaurants.Count > 0)
                 Restaurants.Clear();
-            Restaurants.AddRange(restaurants.Where(i => i.City.CityId == id).ToList());
+            Restaurants.AddRange(restaurants.Where(i => i.City == id).ToList());
         }
 
         [RelayCommand]
@@ -141,8 +141,8 @@ namespace Foglalas.ViewModels
 
                     Reservation newReservation = new Reservation()
                     {
-                        Restaurant = SelectedRestaurant,
-                        User = App.User,
+                        Restaurant = SelectedRestaurant.RestaurantId,
+                        User = App.User.UserId,
                         Size = int.Parse(GivenSize),
                         Date = DateOnly.FromDateTime(PickedDate),
                         StartTime = PickedTime,
