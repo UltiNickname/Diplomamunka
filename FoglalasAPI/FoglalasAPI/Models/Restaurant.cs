@@ -9,13 +9,13 @@ namespace FoglalasAPI.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RestaurantId { get; set; }
+        public Restaurant RestaurantId { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
         [Required]
         [ForeignKey("CityFK")]
-        public int City { get; set; }
+        public City City { get; set; }
         [Required]
         public bool Outdoor { get; set; }
         [Required]
