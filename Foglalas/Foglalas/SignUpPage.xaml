@@ -4,7 +4,7 @@
              xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
              x:DataType="viewmodel:SignUpPageViewModel"
              x:Class="Foglalas.SignUpPage"
-             Title="Sign up">
+             Title="Regisztráció">
     <ScrollView>
         <Grid Background="White">
             <Grid.RowDefinitions>
@@ -27,27 +27,27 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Text="Register!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
-                <Label Grid.Row="2" Text="Fill all the boxes below" HorizontalOptions="Center" FontSize="Subtitle"/>
+                <Label Grid.Row="1" Text="Regisztráljon!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
+                <Label Grid.Row="2" Text="Töltse ki az összes mezőt" HorizontalOptions="Center" FontSize="Subtitle"/>
                 <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="FillAndExpand">
                     <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
                         <Entry Text="{Binding EmailAddress}" Placeholder="Email" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
                     </Frame>
                     <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
-                        <Entry Text="{Binding UserName}" Placeholder="Username" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
+                        <Entry Text="{Binding UserName}" Placeholder="Felhasználónév" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
                     </Frame>
                     <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
-                        <Entry Text="{Binding Password}" Placeholder="Password" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                        <Entry Text="{Binding Password}" Placeholder="Jelszó" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                     </Frame>
                     <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
-                        <Entry Text="{Binding PasswordAgain}" Placeholder="Password again" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                        <Entry Text="{Binding PasswordAgain}" Placeholder="Jelszó újra" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                     </Frame>
 
-                    <Button Text="SIGN UP" BackgroundColor="Purple" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Command="{Binding SignUpCommand}"/>
+                    <Button Text="REGISZTRÁLJON" BackgroundColor="Purple" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Command="{Binding SignUpCommand}"/>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
-                        <Label Text="Already Registered?" TextColor="DarkGray" FontSize="Small"/>
-                        <Label Text=" Login" TextColor="Purple" FontAttributes="Bold" FontSize="Small">
+                        <Label Text="Már regisztrált?" TextColor="DarkGray" FontSize="Small"/>
+                        <Label Text=" Jelentkezzen be" TextColor="Purple" FontAttributes="Bold" FontSize="Small">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToLoginCommand}"/>
                             </Label.GestureRecognizers>
