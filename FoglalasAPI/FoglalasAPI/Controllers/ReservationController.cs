@@ -32,6 +32,17 @@ namespace FoglalasAPI.Controllers
         [Route("AddNewReservation")]
         public async Task<IActionResult> SaveReservation(Reservation reservation)
         {
+            Reservation dbReservation = new Reservation()
+            {
+                Restaurant = _appDbContext.Restaurants.Find(reservation.Restaurant.RestaurantId),
+                User = _appDbContext.Users.Find(reservation.User.UserId),
+                Size = reservation.Size,
+                Date = reservation.Date,
+                StartTime = reservation.StartTime,
+                FinishedTime = reservation.FinishedTime,
+                Outdoor = reservation.Outdoor,
+                SeperateRoom = reservation.SeperateRoom,
+            };
             _appDbContext.Reservations.Add(reservation);
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
