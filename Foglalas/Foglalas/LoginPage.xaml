@@ -27,26 +27,24 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Text="Welcome!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
-                <Label Grid.Row="2" Text="Sign in to continue" HorizontalOptions="Center" FontSize="Subtitle"/>
+                <Label Grid.Row="1" Text="Üdvözöljük!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
+                <Label Grid.Row="2" Text="Jelentkezzen be a továbblépéshez" HorizontalOptions="Center" FontSize="Subtitle"/>
                 <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="FillAndExpand">
                     <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
                         <Entry Text="{Binding Email}" Placeholder="Email" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
                     </Frame>
                     <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20">
-                        <Entry Text="{Binding Password}" Placeholder="Password" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                        <Entry Text="{Binding Password}" Placeholder="Jelszó" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                     </Frame>
                     <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
-                        <CheckBox IsChecked="False"/>
-                        <Label Text="Remember Me" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                        <Label Text="Forgot Password" TextColor="Purple" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="Center"/>
+                        <Label Text="Elfelejtette a jelszót?" TextColor="Purple" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="Center"/>
                     </StackLayout>
 
-                    <Button Text="SIGN IN" BackgroundColor="Purple" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Command="{Binding LoginCommand}"/>
+                    <Button Text="BEJELENTKEZÉS" BackgroundColor="Purple" TextColor="White" FontAttributes="Bold" CornerRadius="30" WidthRequest="200" Margin="0,15,0,0" Command="{Binding LoginCommand}"/>
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
-                        <Label Text="New User?" TextColor="DarkGray" FontSize="Small"/>
-                        <Label Text=" Sign Up" TextColor="Purple" FontAttributes="Bold" FontSize="Small">
+                        <Label Text="Új felhasználó?" TextColor="DarkGray" FontSize="Small"/>
+                        <Label Text=" Regisztráció" TextColor="Purple" FontAttributes="Bold" FontSize="Small">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToSignUpCommand}"/>
                             </Label.GestureRecognizers>
