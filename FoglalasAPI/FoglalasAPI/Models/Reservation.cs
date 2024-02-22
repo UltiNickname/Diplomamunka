@@ -11,10 +11,10 @@ namespace FoglalasAPI.Models
         public int ReservationId { get; set; }
         [Required]
         [ForeignKey("RestaurantFK")]
-        public int RestaurantId { get; set; }
+        public Restaurant Restaurant { get; set; }
         [Required]
         [ForeignKey("UserFK")]
-        public int UserId { get; set; }
+        public User User { get; set; }
         [Required]
         public int Size { get; set; }
         [Required]
