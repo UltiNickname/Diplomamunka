@@ -11,42 +11,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Foglalas.ViewModels
 {
     public partial class MainPageViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
     {
         public ICityService cityService = new CityService();
-
-        [ObservableProperty]
-        private string _givenSize;
-
-        [ObservableProperty]
-        private string _givenName;
-
-        [ObservableProperty]
-        private string _position;
-
-        [ObservableProperty]
-        private DateTime _pickedDate;
-
-        [ObservableProperty]
-        private TimeSpan _pickedTime;
-
-        [ObservableProperty]
-        private bool _isRestaurantEnabled;
-
-        [ObservableProperty]
-        private bool _isTerraceEnable;
-
-        [ObservableProperty]
-        private bool _isSeperateRoomEnable;
-
-        [ObservableProperty]
-        private DateTime _minDate = DateTime.Today.AddDays(1);
-
-        [ObservableProperty]
-        private DateTime _maxDate = DateTime.Today.AddDays(10);
+        
+        
 
         private City _selectedCity;
         public City SelectedCity
@@ -72,7 +45,7 @@ namespace Foglalas.ViewModels
                 if (_selectedRestaurant != value)
                 {
                     _selectedRestaurant = value;
-                    if(_selectedRestaurant != null)
+                    if (_selectedRestaurant != null)
                     {
                         IsTerraceEnable = _selectedRestaurant.Outdoor;
                         IsSeperateRoomEnable = _selectedRestaurant.SeperateRoom;
@@ -80,6 +53,41 @@ namespace Foglalas.ViewModels
                 }
             }
         }
+
+        [ObservableProperty]
+        private string _givenSize;
+
+        [ObservableProperty]
+        private string _givenName;
+
+        [ObservableProperty]
+        private bool _terrace;
+
+        [ObservableProperty]
+        private bool _seperateRoom;
+
+        [ObservableProperty]
+        private DateTime _pickedDate;
+
+        [ObservableProperty]
+        private TimeSpan _pickedTime;
+
+        
+
+        [ObservableProperty]
+        private bool _isRestaurantEnabled;
+
+        [ObservableProperty]
+        private bool _isTerraceEnable;
+
+        [ObservableProperty]
+        private bool _isSeperateRoomEnable;
+
+        [ObservableProperty]
+        private DateTime _minDate = DateTime.Today.AddDays(1);
+
+        [ObservableProperty]
+        private DateTime _maxDate = DateTime.Today.AddDays(10);
         public ObservableRangeCollection<City> Cities { get; set; } = new();
         public ObservableRangeCollection<Restaurant> Restaurants { get; set; } = new();
         public MainPageViewModel(ICityService cityService) 
@@ -125,20 +133,6 @@ namespace Foglalas.ViewModels
                 {
                     ReservationService reservationService = new ReservationService();
 
-                    bool od, sr;
-                    if (Position == null)
-                    {
-                        od = false; sr = false;
-                    }
-                    else if (Position == "Terrace")
-                    {
-                        od = true; sr = false;
-                    }
-                    else
-                    {
-                        od = false; sr = true;
-                    }
-
                     Reservation newReservation = new Reservation()
                     {
                         Restaurant = SelectedRestaurant,
@@ -147,8 +141,8 @@ namespace Foglalas.ViewModels
                         Date = DateOnly.FromDateTime(PickedDate),
                         StartTime = PickedTime,
                         FinishedTime = PickedTime.Add(new TimeSpan(0, 0, int.Parse(GivenSize)*20, 0)),
-                        Outdoor = od,
-                        SeperateRoom = sr
+                        Outdoor = Terrace,
+                        SeperateRoom = SeperateRoom
                     };
                     string reservationInfo = await reservationService.Reserve(newReservation);
                     if (reservationInfo == "Reservation successfull!")
