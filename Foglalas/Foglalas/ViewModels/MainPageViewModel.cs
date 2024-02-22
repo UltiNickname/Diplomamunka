@@ -18,7 +18,7 @@ namespace Foglalas.ViewModels
     {
         public ICityService cityService = new CityService();
         
-        
+        //Form attributes
 
         private City _selectedCity;
         public City SelectedCity
@@ -73,6 +73,8 @@ namespace Foglalas.ViewModels
 
         [ObservableProperty]
         private TimeSpan _pickedEndTime;
+
+        //Hidden attributes
 
         [ObservableProperty]
         private bool _isRestaurantEnabled;
