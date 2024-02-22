@@ -26,20 +26,22 @@
                 SelectedItem="{Binding SelectedRestaurant}" 
                 Margin="10"
                 TitleColor="#F4F3EE"/>
-            <RadioButton
-                Content="Kerthelyiségben szeretnék helyet foglalni"
-                IsEnabled="{Binding IsTerraceEnable}"
-                IsChecked="{Binding Terrace}"
-                GroupName="Positions"
-                Margin="10"
-                TextColor="#F4F3EE"/>
-            <RadioButton
-                Content="Különteremben szeretnék helyet foglalni"
-                IsEnabled="{Binding IsSeperateRoomEnable}"
-                IsChecked="{Binding SeperateRoom}"
-                GroupName="Positions"
-                Margin="10"
-                TextColor="#F4F3EE"/>
+            <Frame HorizontalOptions="Start">
+                <VerticalStackLayout>
+                    <RadioButton
+                    Content="Kerthelyiségben szeretnék helyet foglalni"
+                    IsEnabled="{Binding IsTerraceEnable}"
+                    IsChecked="{Binding Terrace}"
+                    GroupName="Positions"
+                    Margin="10,0,0,0"/>
+                    <RadioButton
+                    Content="Különteremben szeretnék helyet foglalni"
+                    IsEnabled="{Binding IsSeperateRoomEnable}"
+                    IsChecked="{Binding SeperateRoom}"
+                    GroupName="Positions"
+                    Margin="10,0,0,0"/>
+                </VerticalStackLayout>
+            </Frame>
             <HorizontalStackLayout>
                 <Entry
                     Background="White"
