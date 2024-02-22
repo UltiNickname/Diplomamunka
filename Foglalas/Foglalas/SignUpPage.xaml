@@ -30,16 +30,16 @@
                 <Label Grid.Row="1" Text="Regisztráljon!" HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" Padding="0" Margin="0"/>
                 <Label Grid.Row="2" Text="Töltse ki az összes mezőt" HorizontalOptions="Center" FontSize="Subtitle"/>
                 <StackLayout Grid.Row="3" Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                    <Frame Background="Transparent" BorderColor="#7f00ff" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
                         <Entry Text="{Binding EmailAddress}" Placeholder="Email" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
                     </Frame>
-                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                    <Frame Background="Transparent" BorderColor="#7f00ff" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
                         <Entry Text="{Binding UserName}" Placeholder="Felhasználónév" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
                     </Frame>
-                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                    <Frame Background="Transparent" BorderColor="#7f00ff" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
                         <Entry Text="{Binding Password}" Placeholder="Jelszó" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                     </Frame>
-                    <Frame Background="Transparent" BorderColor="Purple" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
+                    <Frame Background="Transparent" BorderColor="#7f00ff" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="20" Margin="0,0,0,10">
                         <Entry Text="{Binding PasswordAgain}" Placeholder="Jelszó újra" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                     </Frame>
 
@@ -47,7 +47,7 @@
 
                     <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,60,0,0" Padding="0">
                         <Label Text="Már regisztrált?" TextColor="DarkGray" FontSize="Small"/>
-                        <Label Text=" Jelentkezzen be" TextColor="Purple" FontAttributes="Bold" FontSize="Small">
+                        <Label Text=" Jelentkezzen be" TextColor="#7f00ff" FontAttributes="Bold" FontSize="Small">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ToLoginCommand}"/>
                             </Label.GestureRecognizers>
