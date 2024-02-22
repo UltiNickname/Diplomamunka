@@ -53,7 +53,8 @@
                 MinimumDate="{Binding MinDate}" 
                 MaximumDate="{Binding MaxDate}" 
                 Date="{Binding PickedDate}"/>
-            <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedTime}"/>
+            <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedStartTime}"/>
+            <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedEndTime}"/>
             <Button Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
         </VerticalStackLayout>
     </ScrollView>

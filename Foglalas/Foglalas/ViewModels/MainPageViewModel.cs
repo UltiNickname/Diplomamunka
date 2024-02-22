@@ -70,9 +70,10 @@ namespace Foglalas.ViewModels
         private DateTime _pickedDate;
 
         [ObservableProperty]
-        private TimeSpan _pickedTime;
+        private TimeSpan _pickedStartTime;
 
-        
+        [ObservableProperty]
+        private TimeSpan _pickedEndTime;
 
         [ObservableProperty]
         private bool _isRestaurantEnabled;
@@ -128,7 +129,7 @@ namespace Foglalas.ViewModels
                     + SelectedRestaurant.Name + "\n"
                     + GivenName + "\n"
                     + GivenSize+ " fő \n"
-                    + PickedDate.Add(PickedTime).ToString(), "Yes", "No");
+                    + PickedDate.Add(PickedStartTime).ToString() +"-"+ PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
                 if (answer)
                 {
                     ReservationService reservationService = new ReservationService();
@@ -139,8 +140,8 @@ namespace Foglalas.ViewModels
                         User = App.User,
                         Size = int.Parse(GivenSize),
                         Date = DateOnly.FromDateTime(PickedDate),
-                        StartTime = PickedTime,
-                        FinishedTime = PickedTime.Add(new TimeSpan(0, 0, int.Parse(GivenSize)*20, 0)),
+                        StartTime = PickedStartTime,
+                        FinishedTime = PickedEndTime,
                         Outdoor = Terrace,
                         SeperateRoom = SeperateRoom
                     };
