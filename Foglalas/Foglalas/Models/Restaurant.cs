@@ -10,7 +10,7 @@ namespace Foglalas.Models
     {
         public int RestaurantId { get; set; }
         public string Name { get; set; }
-        public int City { get; set; }
+        public City City { get; set; }
         //public int Capacity { get; set; }
         public bool Outdoor { get; set; }
         public bool SeperateRoom { get; set; }
