@@ -43,7 +43,7 @@ namespace FoglalasAPI.Controllers
                 Outdoor = reservation.Outdoor,
                 SeperateRoom = reservation.SeperateRoom,
             };
-            _appDbContext.Reservations.Add(reservation);
+            _appDbContext.Reservations.Add(dbReservation);
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
         }
