@@ -4,7 +4,7 @@
              x:Class="Foglalas.LoginPage"
              xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
              x:DataType="viewmodel:LoginPageViewModel"
-             Title="LoginPage">
+             Title="Bejelentkezés">
     <ScrollView>
         <Grid Background="White">
             <Grid.RowDefinitions>
