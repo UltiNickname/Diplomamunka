@@ -34,5 +34,15 @@ namespace FoglalasAPI.Controllers
                         FixedTables = r.FixedTables
                     }).ToList();
         }
+
+        [HttpGet]
+        [Route("GetCapacity")]
+        public int GetCapacity(int restaurantId)
+        {
+            return (from rt in _appDbContext.RestaurantTables
+                    join t in _appDbContext.Tables on rt.Table equals t.TableId
+                    where rt.Restauarnt == restaurantId
+                    select rt.Count*t.Size).Sum();
+        }
     }
 }
