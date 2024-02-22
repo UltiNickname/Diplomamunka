@@ -151,7 +151,7 @@ namespace Foglalas.ViewModels
                         SeperateRoom = sr
                     };
                     string reservationInfo = await reservationService.Reserve(newReservation);
-                    if (reservationInfo == "Reservation saved!")
+                    if (reservationInfo == "Reservation successfull!")
                     {
                         await Shell.Current.DisplayAlert("Success!", "Rerevation has been made!", "OK");
                     }
