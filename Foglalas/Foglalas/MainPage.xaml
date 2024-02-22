@@ -4,7 +4,7 @@
              x:Class="Foglalas.MainPage"
              xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
              x:DataType="viewmodel:MainPageViewModel"
-             Title="Home">
+             Title="Főoldal">
     <ScrollView>
         <VerticalStackLayout>
             <Picker 
