@@ -125,7 +125,7 @@ namespace Foglalas.ViewModels
             if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && GivenSize != null)
             {
                 bool answer = await Shell.Current.DisplayAlert
-                    ("Question?", "Would you like to make your reservation?\n\n"
+                    ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
                     + SelectedRestaurant.Name + "\n"
                     + GivenName + "\n"
                     + GivenSize+ " fő \n"
@@ -148,23 +148,17 @@ namespace Foglalas.ViewModels
                     string reservationInfo = await reservationService.Reserve(newReservation);
                     if (reservationInfo == "Reservation successfull!")
                     {
-                        await Shell.Current.DisplayAlert("Success!", "Rerevation has been made!", "OK");
+                        await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!", "OK");
                     }
                     else
                     {
-                        await Shell.Current.DisplayAlert("Alert!", "Error", "OK");
+                        await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
                     }
                 }                
             }
             else
             {
-                DeniedPopupViewModel deniedPopupViewModel = new DeniedPopupViewModel
-                {
-                    Text = "Töltse ki az össes mezőt!"
-                };
-                var popup = new DeniedPopup(deniedPopupViewModel);
-
-                await Shell.Current.ShowPopupAsync(popup);
+                await Shell.Current.DisplayAlert("Figyelem!", "Töltse ki az össes mezőt", "OK");
             }
         }
     }

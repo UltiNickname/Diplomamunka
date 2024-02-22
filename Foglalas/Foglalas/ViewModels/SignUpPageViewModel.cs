@@ -41,7 +41,7 @@ namespace Foglalas.ViewModels
             {
                 if (!Password.Equals(PasswordAgain))
                 {
-                    await Shell.Current.DisplayAlert("Alert!", "The password are not matching!", "OK");
+                    await Shell.Current.DisplayAlert("Hiba!", "A két jelszó nem megeggyező", "OK");
                     return;
                 }
 
@@ -54,16 +54,16 @@ namespace Foglalas.ViewModels
 
                 if(userInfo == "User created!")
                 {
-                    await Shell.Current.DisplayAlert("Success!", "User created!", "OK");
+                    await Shell.Current.DisplayAlert("Siker!", "Sikersen regisztrált!", "OK");
                     await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Alert!", "User with given email address already exists.", "OK");
+                    await Shell.Current.DisplayAlert("Hiba!", "A felhasználó a megadott email címmel már létezik", "OK");
                 }
             }
             else
-                await Shell.Current.DisplayAlert("Alert!", "Fill all the required fields!", "OK");
+                await Shell.Current.DisplayAlert("Hiba!", "Töltse ki az összes mezőt!", "OK");
         }
     }
 }

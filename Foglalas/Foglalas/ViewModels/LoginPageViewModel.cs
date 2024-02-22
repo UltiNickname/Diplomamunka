@@ -42,13 +42,13 @@ namespace Foglalas.ViewModels
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Error!", "Wrong creditentials!", "OK");
+                    await Shell.Current.DisplayAlert("Hiba!", "Rossz belépési adatok!", "OK");
                 }
                 
             }
             else
             {
-                await Shell.Current.DisplayAlert("Alert!", "Fill all the necessary fields!", "OK");
+                await Shell.Current.DisplayAlert("Hiba!", "Töltse ki az összes mezőt!", "OK");
             }
         }
 
