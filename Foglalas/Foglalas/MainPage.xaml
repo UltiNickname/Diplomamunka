@@ -5,66 +5,84 @@
              xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
              x:DataType="viewmodel:MainPageViewModel"
              Title="Főoldal">
-    <ScrollView>
+    <ScrollView Background="#36454F">
         <VerticalStackLayout>
-            <Grid VerticalOptions="FillAndExpand">
-                <Image Source="MainPageBackground.jpg" />
-            </Grid>
-            <Picker 
+            <Picker
+                Background="White"
                 x:Name="CityPicker" 
                 ItemsSource="{Binding Cities}" 
-                Title="Város" 
+                Title="Válasszon várost a listából" 
                 ItemDisplayBinding="{Binding Name}" 
                 SelectedItem="{Binding SelectedCity}" 
-                Margin="10"/>
-            <Picker 
+                Margin="10"
+                TitleColor="#F4F3EE"/>
+            <Picker
+                Background="White"
                 x:Name="RestaurantPicker" 
                 ItemsSource="{Binding Restaurants}" 
-                Title="Étterem" 
+                Title="Válasszon egy éttermet" 
                 ItemDisplayBinding="{Binding Name}" 
                 IsEnabled="{Binding IsRestaurantEnabled}" 
                 SelectedItem="{Binding SelectedRestaurant}" 
-                Margin="10"/>
-            <RadioButton 
-                Content="Kerthelyiség"
+                Margin="10"
+                TitleColor="#F4F3EE"/>
+            <RadioButton
+                Content="Kerthelyiségben szeretnék helyet foglalni"
                 IsEnabled="{Binding IsTerraceEnable}"
                 IsChecked="{Binding Terrace}"
-                GroupName="Positions"/>
-            <RadioButton 
-                Content="Különterem"
+                GroupName="Positions"
+                Margin="10"
+                TextColor="#F4F3EE"/>
+            <RadioButton
+                Content="Különteremben szeretnék helyet foglalni"
                 IsEnabled="{Binding IsSeperateRoomEnable}"
                 IsChecked="{Binding SeperateRoom}"
-                GroupName="Positions"/>
-            <Entry 
-                x:Name="PersonEntry" 
-                Keyboard="Numeric" 
-                Placeholder="Fő" 
-                MaxLength="2" 
-                MaximumWidthRequest="50" 
-                HorizontalOptions="Start" 
-                Text="{Binding GivenSize}"/>
-            <Entry 
+                GroupName="Positions"
+                Margin="10"
+                TextColor="#F4F3EE"/>
+            <HorizontalStackLayout>
+                <Entry
+                    Background="White"
+                    x:Name="PersonEntry" 
+                    Keyboard="Numeric" 
+                    Placeholder="Fő" 
+                    MaxLength="2" 
+                    MaximumWidthRequest="50" 
+                    HorizontalOptions="Start"
+                    Margin="10"
+                    Text="{Binding GivenSize}"/>
+                <Label Text=" főre foglalok asztalt" Margin="0,20" FontAttributes="Bold" TextColor="#F4F3EE"/>
+            </HorizontalStackLayout>
+            <Label Text="Milyen néver lesz a foglalás?" Margin="10" TextColor="#F4F3EE"/>
+            <Entry
+                Background="White"
                 x:Name="NameEntry" 
                 Keyboard="Text" 
                 Placeholder="Név" 
                 MinimumWidthRequest="200" 
                 MaximumWidthRequest="250" 
                 HorizontalOptions="Start" 
+                Margin="10"
                 Text="{Binding GivenName}"/>
-            <DatePicker 
-                x:Name=" DatePicker" 
+            <Label Text="Mikorra szeretne foglalni?" Margin="10" TextColor="#F4F3EE"/>
+            <DatePicker
+                Background="White"
+                x:Name=" DatePicker"
+                Margin="10"
                 MinimumDate="{Binding MinDate}" 
                 MaximumDate="{Binding MaxDate}" 
                 Date="{Binding PickedDate}"/>
             <HorizontalStackLayout>
-                <TimePicker Format="HH:mm" Time="{Binding PickedStartTime}"/>
-                <Label Text="-tól"/>
+                <HorizontalStackLayout>
+                    <TimePicker Background="White" Format="HH:mm" Time="{Binding PickedStartTime}" Margin="10"/>
+                    <Label Text="-tól" Margin="0, 15, 30, 0" TextColor="#F4F3EE"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <TimePicker Background="White" Format="HH:mm" Time="{Binding PickedEndTime}" Margin="10"/>
+                    <Label Text="-ig" Margin="0, 15" TextColor="#F4F3EE"/>
+                </HorizontalStackLayout>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <TimePicker Format="HH:mm" Time="{Binding PickedEndTime}"/>
-                <Label Text="-ig"/>
-            </HorizontalStackLayout>
-                <Button Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
+            <Button BackgroundColor="#8D80AD" Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
