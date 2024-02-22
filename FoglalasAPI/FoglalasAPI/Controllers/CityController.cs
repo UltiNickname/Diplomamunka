@@ -21,7 +21,7 @@ namespace FoglalasAPI.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public IEnumerable<City> GetAllUsers()
+        public IEnumerable<City> GetAllCities()
         {
             return (from c in _appDbContext.Cities
                     select new City
