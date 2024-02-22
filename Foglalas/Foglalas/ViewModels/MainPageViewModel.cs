@@ -55,16 +55,16 @@ namespace Foglalas.ViewModels
         }
 
         [ObservableProperty]
-        private string _givenSize;
-
-        [ObservableProperty]
-        private string _givenName;
-
-        [ObservableProperty]
         private bool _terrace;
 
         [ObservableProperty]
         private bool _seperateRoom;
+
+        [ObservableProperty]
+        private string _givenSize;
+
+        [ObservableProperty]
+        private string _givenName;
 
         [ObservableProperty]
         private DateTime _pickedDate;
