@@ -7,6 +7,9 @@
              Title="Főoldal">
     <ScrollView>
         <VerticalStackLayout>
+            <Grid VerticalOptions="FillAndExpand">
+                <Image Source="MainPageBackground.jpg" />
+            </Grid>
             <Picker 
                 x:Name="CityPicker" 
                 ItemsSource="{Binding Cities}" 
@@ -61,7 +64,7 @@
                 <TimePicker Format="HH:mm" Time="{Binding PickedEndTime}"/>
                 <Label Text="-ig"/>
             </HorizontalStackLayout>
-            <Button Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
+                <Button Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
