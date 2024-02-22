@@ -89,7 +89,7 @@ namespace Foglalas.ViewModels
         private DateTime _minDate = DateTime.Today.AddDays(1);
 
         [ObservableProperty]
-        private DateTime _maxDate = DateTime.Today.AddDays(10);
+        private DateTime _maxDate = DateTime.Today.AddDays(122);
         public ObservableRangeCollection<City> Cities { get; set; } = new();
         public ObservableRangeCollection<Restaurant> Restaurants { get; set; } = new();
         public MainPageViewModel(ICityService cityService) 
