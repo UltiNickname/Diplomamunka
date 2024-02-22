@@ -10,14 +10,14 @@
             <Picker 
                 x:Name="CityPicker" 
                 ItemsSource="{Binding Cities}" 
-                Title="Select city" 
+                Title="Város" 
                 ItemDisplayBinding="{Binding Name}" 
                 SelectedItem="{Binding SelectedCity}" 
                 Margin="10"/>
             <Picker 
                 x:Name="RestaurantPicker" 
                 ItemsSource="{Binding Restaurants}" 
-                Title="Select Restaurant" 
+                Title="Étterem" 
                 ItemDisplayBinding="{Binding Name}" 
                 IsEnabled="{Binding IsRestaurantEnabled}" 
                 SelectedItem="{Binding SelectedRestaurant}" 
@@ -53,8 +53,14 @@
                 MinimumDate="{Binding MinDate}" 
                 MaximumDate="{Binding MaxDate}" 
                 Date="{Binding PickedDate}"/>
-            <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedStartTime}"/>
-            <TimePicker x:Name="TimePicker" Format="HH:mm" Time="{Binding PickedEndTime}"/>
+            <HorizontalStackLayout>
+                <TimePicker Format="HH:mm" Time="{Binding PickedStartTime}"/>
+                <Label Text="-tól"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <TimePicker Format="HH:mm" Time="{Binding PickedEndTime}"/>
+                <Label Text="-ig"/>
+            </HorizontalStackLayout>
             <Button Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
