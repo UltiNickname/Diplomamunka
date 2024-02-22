@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
 using Foglalas.ViewModels;
-using Foglalas.Views;
 using Foglalas.Models;
 
 namespace Foglalas;

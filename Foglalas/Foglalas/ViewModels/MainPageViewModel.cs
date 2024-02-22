@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using Foglalas.Models;
 using Foglalas.Services;
-using Foglalas.Views;
 using MvvmHelpers;
 using System;
 using System.Collections.Generic;

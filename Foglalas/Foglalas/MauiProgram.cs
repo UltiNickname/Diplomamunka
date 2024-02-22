@@ -2,7 +2,6 @@
 using CommunityToolkit.Maui.Core;
 using Foglalas.Services;
 using Foglalas.ViewModels;
-using Foglalas.Views;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 
