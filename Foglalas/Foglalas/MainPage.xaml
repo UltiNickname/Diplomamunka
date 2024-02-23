@@ -15,7 +15,7 @@
                 ItemDisplayBinding="{Binding Name}" 
                 SelectedItem="{Binding SelectedCity}" 
                 Margin="10"
-                TitleColor="#F4F3EE"/>
+                TitleColor="{OnPlatform White, Android=Black, WinUI=White}"/>
             <Picker
                 Background="White"
                 x:Name="RestaurantPicker" 
@@ -25,9 +25,9 @@
                 IsEnabled="{Binding IsRestaurantEnabled}" 
                 SelectedItem="{Binding SelectedRestaurant}" 
                 Margin="10"
-                TitleColor="#F4F3EE"/>
-            <Frame HorizontalOptions="Start">
-                <VerticalStackLayout>
+                TitleColor="{OnPlatform White, Android=Black, WinUI=White}"/>
+                <Frame Margin="10,0,0,0">
+        <VerticalStackLayout>
                     <RadioButton
                     Content="Kerthelyiségben szeretnék helyet foglalni"
                     IsEnabled="{Binding IsTerraceEnable}"
@@ -40,7 +40,7 @@
                     IsChecked="{Binding SeperateRoom}"
                     GroupName="Positions"
                     Margin="10,0,0,0"/>
-                </VerticalStackLayout>
+        </VerticalStackLayout>
             </Frame>
             <HorizontalStackLayout>
                 <Entry
