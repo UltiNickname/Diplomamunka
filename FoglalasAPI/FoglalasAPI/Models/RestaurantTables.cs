@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoglalasAPI.Models
 {
-    [PrimaryKey("Restauarnt", "Table")]
+    [PrimaryKey("Restaurant", "Table")]
     public class RestaurantTables
     {
         [Required]
