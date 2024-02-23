@@ -40,9 +40,18 @@ namespace FoglalasAPI.Controllers
         public int GetCapacity(int restaurantId)
         {
             return (from rt in _appDbContext.RestaurantTables
-                    join t in _appDbContext.Tables on rt.Table equals t.TableId
-                    where rt.Restauarnt == restaurantId
+                    join t in _appDbContext.Tables on rt.Table.TableId equals t.TableId
+                    where rt.Restaurant.RestaurantId == restaurantId
                     select rt.Count*t.Size).Sum();
+        }
+
+        [HttpPost]
+        [Route("AddNewRestaurant")]
+        public async Task<IActionResult> AddRestaurant(Restaurant restaurant)
+        {
+            _appDbContext.Restaurants.Add(restaurant);
+            _appDbContext.SaveChanges();
+            return Ok("Restaurant created!");
         }
     }
 }

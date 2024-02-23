@@ -30,5 +30,18 @@ namespace FoglalasAPI.Controllers
                         Name = c.Name
                     }).ToList();
         }
+
+        [HttpPost]
+        [Route("AddNewCity")]
+        public async Task<IActionResult> AddCity(City city)
+        {
+            if (_appDbContext.Cities.Any(c => c.Name == city.Name))
+            {
+                return BadRequest("City already exists.");
+            }
+            _appDbContext.Cities.Add(city);
+            _appDbContext.SaveChanges();
+            return Ok("ity created!");
+        }
     }
 }
