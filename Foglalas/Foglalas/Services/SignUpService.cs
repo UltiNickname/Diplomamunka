@@ -20,7 +20,7 @@ namespace Foglalas.Services
                 {
                     var userInfo = new List<User>();
                     var client = new HttpClient();
-                    string url = "http://localhost:8099/api/user/AddNewUser";
+                    string url = "http://192.168.0.80:8099/api/user/AddNewUser";
                     client.BaseAddress = new Uri(url);
                     var body = JsonConvert.SerializeObject(user);
                     HttpResponseMessage response = await client.PostAsJsonAsync(url, user);

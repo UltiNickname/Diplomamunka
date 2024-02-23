@@ -18,7 +18,7 @@ namespace Foglalas.Services
                 {
                     var restaurantList = new List<Restaurant>();
                     var client = new HttpClient();
-                    string url = "http://localhost:8099/api/restaurant/GetAll";
+                    string url = "http://192.168.0.80:8099/api/restaurant/GetAll";
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if (response.IsSuccessStatusCode)
@@ -50,7 +50,7 @@ namespace Foglalas.Services
                 {
                     var cityList = new List<City>();
                     var client = new HttpClient();
-                    string url = "http://localhost:8099/api/city/GetAll";
+                    string url = "http://192.168.0.80:8099/api/city/GetAll";
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if (response.IsSuccessStatusCode)
