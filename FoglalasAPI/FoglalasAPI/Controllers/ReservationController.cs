@@ -82,6 +82,13 @@ namespace FoglalasAPI.Controllers
                 SeperateRoom = reservation.SeperateRoom,
             };
             _appDbContext.Reservations.Add(dbReservation);
+
+            List<Table> tables = _appDbContext.Tables.ToList();
+            int size = reservation.Size;
+            foreach (Table table in tables)
+            {
+                if(table.Size <= size)
+            }
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
         }
