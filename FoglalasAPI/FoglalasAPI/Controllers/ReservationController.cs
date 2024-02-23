@@ -85,9 +85,14 @@ namespace FoglalasAPI.Controllers
 
             List<Table> tables = _appDbContext.Tables.ToList();
             int size = reservation.Size;
+            int num = 0;
             foreach (Table table in tables)
             {
-                if(table.Size <= size)
+                while(size > 0 && size > table.Size)
+                {
+                    num++;
+                    size-=table.Size;
+                }
             }
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
