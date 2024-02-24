@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240222002335_init")]
+    [Migration("20240224000433_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -85,16 +85,18 @@ namespace FoglalasAPI.Migrations
 
             modelBuilder.Entity("FoglalasAPI.Models.ReservedTables", b =>
                 {
-                    b.Property<int>("Reservation")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Table")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Count")
                         .HasColumnType("integer");
 
-                    b.HasKey("Reservation", "Table");
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TableId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("ReservationId");
+
+                    b.HasIndex("TableId");
 
                     b.ToTable("ReservedTables");
                 });
@@ -133,16 +135,18 @@ namespace FoglalasAPI.Migrations
 
             modelBuilder.Entity("FoglalasAPI.Models.RestaurantTables", b =>
                 {
-                    b.Property<int>("Restauarnt")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Table")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Count")
                         .HasColumnType("integer");
 
-                    b.HasKey("Restauarnt", "Table");
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TableId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.HasIndex("TableId");
 
                     b.ToTable("RestaurantTables");
                 });
@@ -207,6 +211,25 @@ namespace FoglalasAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FoglalasAPI.Models.ReservedTables", b =>
+                {
+                    b.HasOne("FoglalasAPI.Models.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoglalasAPI.Models.Table", "Table")
+                        .WithMany()
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("Table");
+                });
+
             modelBuilder.Entity("FoglalasAPI.Models.Restaurant", b =>
                 {
                     b.HasOne("FoglalasAPI.Models.City", "City")
@@ -216,6 +239,25 @@ namespace FoglalasAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("FoglalasAPI.Models.RestaurantTables", b =>
+                {
+                    b.HasOne("FoglalasAPI.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FoglalasAPI.Models.Table", "Table")
+                        .WithMany()
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("Table");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,32 +26,6 @@ namespace FoglalasAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReservedTables",
-                columns: table => new
-                {
-                    Reservation = table.Column<int>(type: "integer", nullable: false),
-                    Table = table.Column<int>(type: "integer", nullable: false),
-                    Count = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservedTables", x => new { x.Reservation, x.Table });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RestaurantTables",
-                columns: table => new
-                {
-                    Restauarnt = table.Column<int>(type: "integer", nullable: false),
-                    Table = table.Column<int>(type: "integer", nullable: false),
-                    Count = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RestaurantTables", x => new { x.Restauarnt, x.Table });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tables",
                 columns: table => new
                 {
@@ -134,6 +108,54 @@ namespace FoglalasAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RestaurantTables",
+                columns: table => new
+                {
+                    RestaurantId = table.Column<int>(type: "integer", nullable: false),
+                    TableId = table.Column<int>(type: "integer", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_RestaurantTables_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "RestaurantId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaurantTables_Tables_TableId",
+                        column: x => x.TableId,
+                        principalTable: "Tables",
+                        principalColumn: "TableId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservedTables",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(type: "integer", nullable: false),
+                    TableId = table.Column<int>(type: "integer", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_ReservedTables_Reservations_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservations",
+                        principalColumn: "ReservationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReservedTables_Tables_TableId",
+                        column: x => x.TableId,
+                        principalTable: "Tables",
+                        principalColumn: "TableId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RestaurantFK",
                 table: "Reservations",
@@ -145,22 +167,42 @@ namespace FoglalasAPI.Migrations
                 column: "UserFK");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReservedTables_ReservationId",
+                table: "ReservedTables",
+                column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservedTables_TableId",
+                table: "ReservedTables",
+                column: "TableId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Restaurants_CityFK",
                 table: "Restaurants",
                 column: "CityFK");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantTables_RestaurantId",
+                table: "RestaurantTables",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantTables_TableId",
+                table: "RestaurantTables",
+                column: "TableId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Reservations");
-
-            migrationBuilder.DropTable(
                 name: "ReservedTables");
 
             migrationBuilder.DropTable(
                 name: "RestaurantTables");
+
+            migrationBuilder.DropTable(
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Tables");
