@@ -4,15 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoglalasAPI.Models
 {
-    [PrimaryKey("Reservation", "Table")]
+    [Keyless]
     public class ReservedTables
     {
         [Required]
-        [ForeignKey("ReservationFK")]
-        public int Reservation { get; set; }
+        public int ReservationId { get; set; }
+        [Key, ForeignKey("ReservationId")]
+        public virtual Reservation Reservation { get; set; }
         [Required]
-        [ForeignKey("TableFK")]
-        public int Table { get; set; }
+        public int TableId { get; set; }
+        [Key, ForeignKey("TableId")]
+        public virtual Table Table { get; set; }
         [Required]
         public int Count { get; set; }
     }
