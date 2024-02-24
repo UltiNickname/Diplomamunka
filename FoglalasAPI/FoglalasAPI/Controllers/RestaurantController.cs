@@ -42,7 +42,7 @@ namespace FoglalasAPI.Controllers
             return (from rt in _appDbContext.RestaurantTables
                     join t in _appDbContext.Tables on rt.Table.TableId equals t.TableId
                     where rt.Restaurant.RestaurantId == restaurantId
-                    select rt.Count*t.Size).Sum();
+                    select rt.Count * t.Size).Sum();
         }
 
         [HttpPost]
@@ -61,6 +61,21 @@ namespace FoglalasAPI.Controllers
             _appDbContext.Restaurants.Add(dbRestaurant);
             _appDbContext.SaveChanges();
             return Ok("Restaurant created!");
+        }
+
+        [HttpPost]
+        [Route("AddTableToRestaurant")]
+        public async Task<IActionResult> TableToRestaurant(RestaurantTables restaurantTables)
+        {
+            RestaurantTables dbRestaurantTables = new RestaurantTables()
+            {
+                RestaurantId = restaurantTables.RestaurantId,
+                TableId = restaurantTables.TableId,
+                Count = restaurantTables.Count
+            };
+            _appDbContext.RestaurantTables.Add(dbRestaurantTables);
+            _appDbContext.SaveChanges();
+            return Ok("Table added created!");
         }
     }
 }
