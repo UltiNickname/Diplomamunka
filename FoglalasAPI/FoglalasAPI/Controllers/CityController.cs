@@ -41,7 +41,7 @@ namespace FoglalasAPI.Controllers
             }
             _appDbContext.Cities.Add(city);
             _appDbContext.SaveChanges();
-            return Ok("ity created!");
+            return Ok("City created!");
         }
     }
 }
