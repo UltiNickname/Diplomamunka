@@ -88,11 +88,23 @@ namespace FoglalasAPI.Controllers
             int num = 0;
             foreach (Table table in tables)
             {
-                while(size > 0 && size > table.Size)
+                int availableTables = (from rvt in _appDbContext.ReservedTables 
+                                      join t in _appDbContext.Tables on rvt.TableId equals t.TableId
+                                      join rv in _appDbContext.Reservations on rvt.ReservationId equals rv.ReservationId
+                                      join rtt in _appDbContext.RestaurantTables on rv.Restaurant.RestaurantId equals rtt.RestaurantId
+                                      where rvt.Table.Size == table.Size && rvt.TableId == rtt.TableId
+                                      select rtt.Count-rvt.Count).ToList().First();
+                while(size > 0 && size > table.Size && availableTables > 0)
                 {
                     num++;
                     size-=table.Size;
                 }
+                _appDbContext.ReservedTables.Add(new ReservedTables
+                {
+                    ReservationId = reservation.ReservationId,
+                    TableId = table.TableId,
+                    Count = num
+                });
             }
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
