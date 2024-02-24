@@ -3,6 +3,9 @@ using FoglalasAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace FoglalasAPI.Controllers
 {
@@ -68,7 +71,7 @@ namespace FoglalasAPI.Controllers
         [Route("AddTableToRestaurant")]
         public async Task<IActionResult> TableToRestaurant(RestaurantTables restaurantTables)
         {
-            _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO public.'RestaurantTables'('RestaurantId', 'TableId', 'Count') VALUES ({restaurantTables.RestaurantId}, {restaurantTables.TableId}, {restaurantTables.Count})");
+            _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO \"RestaurantTables\" (\"RestaurantId\", \"TableId\", \"Count\")VALUES ({restaurantTables.RestaurantId}, {restaurantTables.TableId}, {restaurantTables.Count})");
             _appDbContext.SaveChanges();
             return Ok("Table added created!");
         }
