@@ -73,7 +73,7 @@ namespace FoglalasAPI.Controllers
                 TableId = restaurantTables.TableId,
                 Count = restaurantTables.Count
             };
-            _appDbContext.RestaurantTables.Add(dbRestaurantTables);
+            _appDbContext.RestaurantTables.Attach(dbRestaurantTables);
             _appDbContext.SaveChanges();
             return Ok("Table added created!");
         }
