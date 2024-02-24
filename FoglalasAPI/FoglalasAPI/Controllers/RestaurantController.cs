@@ -49,7 +49,16 @@ namespace FoglalasAPI.Controllers
         [Route("AddNewRestaurant")]
         public async Task<IActionResult> AddRestaurant(Restaurant restaurant)
         {
-            _appDbContext.Restaurants.Add(restaurant);
+            Restaurant dbRestaurant = new Restaurant()
+            {
+                RestaurantId = restaurant.RestaurantId,
+                Name = restaurant.Name,
+                City = _appDbContext.Cities.Find(restaurant.City.CityId),
+                Outdoor = restaurant.Outdoor,
+                SeperateRoom = restaurant.SeperateRoom,
+                FixedTables = restaurant.FixedTables
+            };
+            _appDbContext.Restaurants.Add(dbRestaurant);
             _appDbContext.SaveChanges();
             return Ok("Restaurant created!");
         }
