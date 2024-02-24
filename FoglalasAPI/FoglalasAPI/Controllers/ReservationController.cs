@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
@@ -83,17 +84,20 @@ namespace FoglalasAPI.Controllers
             };
             _appDbContext.Reservations.Add(dbReservation);
 
+            
             List<Table> tables = _appDbContext.Tables.ToList();
             int size = reservation.Size;
             int num = 0;
             foreach (Table table in tables)
             {
-                int availableTables = (from rvt in _appDbContext.ReservedTables 
-                                      join t in _appDbContext.Tables on rvt.TableId equals t.TableId
-                                      join rv in _appDbContext.Reservations on rvt.ReservationId equals rv.ReservationId
-                                      join rtt in _appDbContext.RestaurantTables on rv.Restaurant.RestaurantId equals rtt.RestaurantId
-                                      where rvt.Table.Size == table.Size && rvt.TableId == rtt.TableId
-                                      select rtt.Count-rvt.Count).ToList().First();
+                int availableTables = (from rtt in _appDbContext.RestaurantTables
+                                       join t in _appDbContext.Tables on rtt.TableId equals t.TableId
+                                       join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
+                                       join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
+                                       where t.Size == table.Size
+                                       group new { Capacity = rtt.Count, reservedTableCount = rvt.Count } by new { rtt.Count, reservedTableCount = rvt.Count } into g
+                                       select g.Key.Count - g.Sum(x => x.reservedTableCount)).ToList().First();
+                /*
                 while(size > 0 && size > table.Size && availableTables > 0)
                 {
                     num++;
@@ -105,6 +109,7 @@ namespace FoglalasAPI.Controllers
                     TableId = table.TableId,
                     Count = num
                 });
+                */
             }
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
