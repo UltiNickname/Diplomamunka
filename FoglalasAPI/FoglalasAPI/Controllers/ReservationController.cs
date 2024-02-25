@@ -94,22 +94,16 @@ namespace FoglalasAPI.Controllers
                                        join t in _appDbContext.Tables on rtt.TableId equals t.TableId
                                        join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
                                        join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
-                                       where t.Size == table.Size
+                                       where t.Size == table.Size && rv.Restaurant.RestaurantId == reservation.ReservationId
                                        group new { Capacity = rtt.Count, reservedTableCount = rvt.Count } by new { rtt.Count, reservedTableCount = rvt.Count } into g
                                        select g.Key.Count - g.Sum(x => x.reservedTableCount)).ToList().First();
-                /*
-                while(size > 0 && size > table.Size && availableTables > 0)
+                
+                while(size > 0 && size > table.Size && (availableTables > 0 || availableTables == null))
                 {
                     num++;
                     size-=table.Size;
                 }
-                _appDbContext.ReservedTables.Add(new ReservedTables
-                {
-                    ReservationId = reservation.ReservationId,
-                    TableId = table.TableId,
-                    Count = num
-                });
-                */
+                _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO \"RestaurantTables\"(\"ReservationId\",\"TableId\",\"Count\") VALUES ({reservation.ReservationId},{table.TableId},{num})");   
             }
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
