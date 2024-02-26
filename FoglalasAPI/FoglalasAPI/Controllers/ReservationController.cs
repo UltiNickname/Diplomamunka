@@ -97,7 +97,7 @@ namespace FoglalasAPI.Controllers
                                        join t in _appDbContext.Tables on rtt.TableId equals t.TableId
                                        join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
                                        join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
-                                       where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId
+                                       where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId
                                        group new { RestaurantTableCount = rtt.Count, ReservedTableCount = rvt.Count } 
                                        by new { restaurantTableCount = rtt.Count, reservedTableCount = rvt.Count } into g
                                        orderby g.Key.restaurantTableCount descending
