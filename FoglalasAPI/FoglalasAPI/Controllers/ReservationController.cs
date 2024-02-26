@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
+using Table = FoglalasAPI.Models.Table;
 
 namespace FoglalasAPI.Controllers
 {

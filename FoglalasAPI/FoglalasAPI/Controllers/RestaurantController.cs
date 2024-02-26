@@ -49,6 +49,17 @@ namespace FoglalasAPI.Controllers
                     select rt.Count * t.Size).Sum();
         }
 
+        [HttpGet]
+        [Route("GetCurrentCapacity")]
+        public int GetCurrentCapacity(int restaurantId)
+        {
+            return GetCapacity(restaurantId) - (from rvt in _appDbContext.ReservedTables
+                                                join t in _appDbContext.Tables on rvt.Table.TableId equals t.TableId
+                                                join rv in _appDbContext.Reservations on rvt.ReservationId equals rv.ReservationId
+                                                where rv.Restaurant.RestaurantId == restaurantId
+                                                select rvt.Count * t.Size).Sum();
+        }
+
         [HttpPost]
         [Route("AddNewRestaurant")]
         public async Task<IActionResult> AddRestaurant(Restaurant restaurant)
