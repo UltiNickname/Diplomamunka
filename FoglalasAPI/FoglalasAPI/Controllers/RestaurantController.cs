@@ -51,12 +51,12 @@ namespace FoglalasAPI.Controllers
 
         [HttpGet]
         [Route("GetCurrentCapacity")]
-        public int GetCurrentCapacity(int restaurantId)
+        public int GetCurrentCapacity(int restaurantId, DateOnly date, TimeOnly start, TimeOnly end)
         {
             return GetCapacity(restaurantId) - (from rvt in _appDbContext.ReservedTables
                                                 join t in _appDbContext.Tables on rvt.Table.TableId equals t.TableId
                                                 join rv in _appDbContext.Reservations on rvt.ReservationId equals rv.ReservationId
-                                                where rv.Restaurant.RestaurantId == restaurantId
+                                                where rv.Restaurant.RestaurantId == restaurantId && rv.Date == date && (rv.StartTime < end && rv.FinishedTime > start)
                                                 select rvt.Count * t.Size).Sum();
         }
 
