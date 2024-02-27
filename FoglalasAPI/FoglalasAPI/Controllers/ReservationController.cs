@@ -91,27 +91,33 @@ namespace FoglalasAPI.Controllers
             List<Table> tables = _appDbContext.Tables.ToList();
             tables.Reverse();
             int num;
-            foreach (Table table in tables)
+            do
             {
-                num = 0;
-                var availableTables = (from rtt in _appDbContext.RestaurantTables
-                                       join t in _appDbContext.Tables on rtt.TableId equals t.TableId
-                                       join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
-                                       join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
-                                       where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId
-                                       group new { RestaurantTableCount = rtt.Count, ReservedTableCount = rvt.Count } 
-                                       by new { restaurantTableCount = rtt.Count, reservedTableCount = rvt.Count } into g
-                                       orderby g.Key.restaurantTableCount descending
-                                       select g.Key.restaurantTableCount - g.Sum(x => x.ReservedTableCount)).ToList();
-
-                while (size > 0 && size >= table.Size && (availableTables.Count() == 0 || availableTables.First() > 0))
+                foreach (Table table in tables)
                 {
-                    num++;
-                    size-=table.Size;
+                    num = 0;
+                    var availableTables = (from rtt in _appDbContext.RestaurantTables
+                                           join t in _appDbContext.Tables on rtt.TableId equals t.TableId
+                                           join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
+                                           join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
+                                           where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId
+                                           group new { RestaurantTableCount = rtt.Count, ReservedTableCount = rvt.Count }
+                                           by new { restaurantTableCount = rtt.Count, reservedTableCount = rvt.Count } into g
+                                           orderby g.Key.restaurantTableCount descending
+                                           select g.Key.restaurantTableCount - g.Sum(x => x.ReservedTableCount)).ToList();
+
+                    while (size > 0 && size >= table.Size && (availableTables.Count() == 0 || availableTables.First() > 0))
+                    {
+                        num++;
+                        size -= table.Size;
+                    }
+                    if (num > 0)
+                        _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO \"ReservedTables\"(\"ReservationId\",\"TableId\",\"Count\") VALUES ({dbReservation.ReservationId},{table.TableId},{num})");
                 }
-                if(num > 0)
-                _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO \"ReservedTables\"(\"ReservationId\",\"TableId\",\"Count\") VALUES ({dbReservation.ReservationId},{table.TableId},{num})");   
-            }
+                if (size > 0)
+                    size += 2;
+            } while (size > 0);
+            
             _appDbContext.SaveChanges();
             return Ok("Reservation saved!");
         }
