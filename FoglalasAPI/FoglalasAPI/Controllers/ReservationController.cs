@@ -119,7 +119,7 @@ namespace FoglalasAPI.Controllers
                         _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO \"ReservedTables\"(\"ReservationId\",\"TableId\",\"Count\") VALUES ({dbReservation.ReservationId},{table.TableId},{num})");
                 }
                 if (size > 0)
-                    size += 2;
+                    size++;
             } while (size > 0);
             
             _appDbContext.SaveChanges();
