@@ -88,6 +88,8 @@ namespace FoglalasAPI.Controllers
             _appDbContext.Reservations.Add(dbReservation);
             _appDbContext.SaveChanges();
             int size = reservation.Size;
+            if (size % 2 == 1)
+                size += 1;
             List<Table> tables = _appDbContext.Tables.ToList();
             tables.Reverse();
             int num;
