@@ -106,7 +106,7 @@ namespace FoglalasAPI.Controllers
                                            orderby g.Key.restaurantTableCount descending
                                            select g.Key.restaurantTableCount - g.Sum(x => x.ReservedTableCount)).ToList();
 
-                    var restaurantTable = (from rtt in _appDbContext.RestaurantTables where rtt.TableId == table.TableId select rtt.Count).ToList();
+                    var restaurantTable = (from rtt in _appDbContext.RestaurantTables where rtt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId select rtt.Count).ToList();
 
                     while (size > 0 && size >= table.Size && (availableTables.Count() == 0 || availableTables.First() > 0) && restaurantTable.Count() != 0)
                     {
