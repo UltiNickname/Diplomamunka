@@ -44,7 +44,7 @@ namespace Foglalas.Services
             }
         }
 
-        public async Task<List<Reservation>> Reservations(User user)
+        public async Task<List<Reservation>> Reservations(int userId)
         {
             try
             {
