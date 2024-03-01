@@ -27,9 +27,12 @@ public static class MauiProgram
 		builder.Services.AddSingleton<LoginPageViewModel>();
 		builder.Services.AddSingleton<SignUpPage>();
 		builder.Services.AddSingleton<SignUpPageViewModel>();
-
+		builder.Services.AddSingleton<ListPage>();
+        builder.Services.AddSingleton<ListPageViewModel>();
+        builder.Services.AddSingleton<AdminPage>();
+        builder.Services.AddSingleton<RestaurantPage>();
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
