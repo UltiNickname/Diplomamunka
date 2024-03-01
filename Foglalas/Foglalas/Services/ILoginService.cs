@@ -9,6 +9,6 @@ namespace Foglalas.Services
 {
     public interface ILoginService
     {
-        Task<User> Login(string username, string password);
+        public Task<User> Login(string username, string password);
     }
 }
