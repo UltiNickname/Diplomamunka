@@ -10,5 +10,6 @@ namespace Foglalas.Services
     public interface IReservationService
     {
         public Task<string> Reserve(Reservation reservation);
+        public Task<List<Reservation>> Reservations(int userId);
     }
 }

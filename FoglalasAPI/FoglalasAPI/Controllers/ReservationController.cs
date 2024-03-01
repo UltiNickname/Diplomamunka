@@ -53,9 +53,9 @@ namespace FoglalasAPI.Controllers
 
         [HttpGet]
         [Route("GetUserAll")]
-        public IEnumerable<Reservation> GetUserAllReservations(User user)
+        public IEnumerable<Reservation> GetUserAllReservations(int userId)
         {
-            return (from r in _appDbContext.Reservations where r.User.UserId == user.UserId
+            return (from r in _appDbContext.Reservations where r.User.UserId == userId
                     select new Reservation
                     {
                         ReservationId = r.ReservationId,
