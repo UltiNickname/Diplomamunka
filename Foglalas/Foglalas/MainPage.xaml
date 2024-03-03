@@ -76,7 +76,11 @@
                 Date="{Binding PickedDate}"/>
             <HorizontalStackLayout>
                 <HorizontalStackLayout>
-                    <TimePicker Background="White" Format="HH:mm" Time="{Binding PickedStartTime}" Margin="10"/>
+                    <TimePicker 
+                        Background="White" 
+                        Format="HH:mm" 
+                        Time="{Binding PickedStartTime}" 
+                        Margin="10"/>
                     <Label Text="-tól" Margin="0, 15, 30, 0" TextColor="#F4F3EE"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
