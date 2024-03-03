@@ -18,10 +18,22 @@ namespace FoglalasAPI.Models
         [ForeignKey("CityFK")]
         public City City { get; set; }
         [Required]
+        public TimeOnly Opening { get; set; }
+        [Required]
+        public TimeOnly Closing { get; set; }
+        [Required]
+        public TimeOnly KitchenClosing { get; set; }
+        [Required]
         public bool Outdoor { get; set; }
         [Required]
         public bool SeperateRoom { get; set; }
         [Required]
-        public bool FixedTables { get; set; }  
+        public bool FixedTables { get; set; }
+        [Required]
+        public bool Menu { get; set; }
+        [Required]
+        public bool AnimalFriendly { get; set; }
+        [Required]
+        public bool SzepKartyaAvailable { get; set; }
     }
 }
