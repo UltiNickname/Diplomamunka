@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using Foglalas.Services;
 using Foglalas.ViewModels;
+using Foglalas.Views;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
 
@@ -23,6 +24,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<ICityService, CityService>();
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddSingleton<ListPage>();
 		builder.Services.AddSingleton<LoginPage>();
 		builder.Services.AddSingleton<LoginPageViewModel>();
 		builder.Services.AddSingleton<SignUpPage>();
