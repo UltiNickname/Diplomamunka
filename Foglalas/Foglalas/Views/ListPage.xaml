@@ -21,8 +21,11 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -36,28 +39,40 @@
                                    TextColor="#F4F3EE"/>
                             <Label Grid.Row="1" 
                                    Grid.Column="1"
-                                   Text="{Binding Size}"
+                                   Text="{Binding Date}"
                                    FontAttributes="Italic"
                                    VerticalOptions="End"
-                                   TextColor="#F4F3EE"/>
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
                             <Label Grid.Row="1"
                                    Grid.Column="2"
-                                   Text="{Binding Date}"
-                                   VerticalOptions="End"
-                                   TextColor="#F4F3EE"/>
-                            <Label Grid.Row="1"
-                                   Grid.Column="3"
                                    Text="{Binding StartTime}"
                                    VerticalOptions="End"
                                    TextColor="#F4F3EE"/>
                             <Label Grid.Row="1"
-                                   Grid.Column="4"
+                                   Grid.Column="3"
                                    Text="-"
                                    VerticalOptions="End"
                                    TextColor="#F4F3EE"/>
                             <Label Grid.Row="1"
-                                   Grid.Column="5"
+                                   Grid.Column="4"
                                    Text="{Binding FinishedTime}"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="6"
+                                   Text=" Foglalás mérete: "
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="7"
+                                   Text="{Binding Size}"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
+                            <Label Grid.Row="2"
+                                   Grid.Column="7"
+                                   Text="Foglalás neve"
                                    VerticalOptions="End"
                                    TextColor="#F4F3EE"/>
                         </Grid>
