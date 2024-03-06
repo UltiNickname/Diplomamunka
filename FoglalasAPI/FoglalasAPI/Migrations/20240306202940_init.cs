@@ -61,9 +61,15 @@ namespace FoglalasAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CityFK = table.Column<int>(type: "integer", nullable: false),
+                    Opening = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    Closing = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    KitchenClosing = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     Outdoor = table.Column<bool>(type: "boolean", nullable: false),
                     SeperateRoom = table.Column<bool>(type: "boolean", nullable: false),
-                    FixedTables = table.Column<bool>(type: "boolean", nullable: false)
+                    FixedTables = table.Column<bool>(type: "boolean", nullable: false),
+                    Menu = table.Column<bool>(type: "boolean", nullable: false),
+                    AnimalFriendly = table.Column<bool>(type: "boolean", nullable: false),
+                    SzepKartyaAvailable = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,6 +90,7 @@ namespace FoglalasAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RestaurantFK = table.Column<int>(type: "integer", nullable: false),
                     UserFK = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Size = table.Column<int>(type: "integer", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     StartTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),

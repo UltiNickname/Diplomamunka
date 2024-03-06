@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240224000433_init")]
+    [Migration("20240306202940_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -55,6 +55,10 @@ namespace FoglalasAPI.Migrations
 
                     b.Property<TimeOnly>("FinishedTime")
                         .HasColumnType("time without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("Outdoor")
                         .HasColumnType("boolean");
@@ -109,10 +113,22 @@ namespace FoglalasAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RestaurantId"));
 
+                    b.Property<bool>("AnimalFriendly")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("CityFK")
                         .HasColumnType("integer");
 
+                    b.Property<TimeOnly>("Closing")
+                        .HasColumnType("time without time zone");
+
                     b.Property<bool>("FixedTables")
+                        .HasColumnType("boolean");
+
+                    b.Property<TimeOnly>("KitchenClosing")
+                        .HasColumnType("time without time zone");
+
+                    b.Property<bool>("Menu")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -120,10 +136,16 @@ namespace FoglalasAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<TimeOnly>("Opening")
+                        .HasColumnType("time without time zone");
+
                     b.Property<bool>("Outdoor")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("SeperateRoom")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("SzepKartyaAvailable")
                         .HasColumnType("boolean");
 
                     b.HasKey("RestaurantId");
