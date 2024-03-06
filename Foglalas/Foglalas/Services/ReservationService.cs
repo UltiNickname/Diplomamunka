@@ -52,7 +52,7 @@ namespace Foglalas.Services
                 {
                     var reservationList = new List<Reservation>();
                     var client = new HttpClient();
-                    string url = "http://192.168.0.80:8099/api/reservation/GetUserAll";
+                    string url = "http://192.168.0.80:8099/api/reservation/GetUserAll/" + userId.ToString();
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if (response.IsSuccessStatusCode)

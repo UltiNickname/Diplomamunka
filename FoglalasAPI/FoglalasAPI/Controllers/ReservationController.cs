@@ -52,7 +52,7 @@ namespace FoglalasAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserAll")]
+        [Route("GetUserAll/{userId}")]
         public IEnumerable<Reservation> GetUserAllReservations(int userId)
         {
             return (from r in _appDbContext.Reservations where r.User.UserId == userId

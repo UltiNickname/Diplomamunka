@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Foglalas.Views.ListPage"
-             Title="ListPage">
+             Title="Foglalásaim">
     <VerticalStackLayout>
-        <ListView ItemsSource="{Binding Reservation}">
+        <ListView ItemsSource="{Binding Reservations}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -18,11 +18,11 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="1"
-                           Text="{Binding Name}"
+                           Text="{Binding Restauramt}"
                            FontAttributes="Bold" />
                             <Label Grid.Row="1"
                            Grid.Column="1"
-                           Text="{Binding Location}"
+                           Text="{Binding Size}"
                            FontAttributes="Italic"
                            VerticalOptions="End" />
                         </Grid>

@@ -22,15 +22,23 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 		builder.Services.AddSingleton<ICityService, CityService>();
+		builder.Services.AddSingleton<IReservationService, ReservationService>();
+		builder.Services.AddSingleton<ILoginService, LoginService>();
+		builder.Services.AddSingleton<ISignUpService, SignUpService>();
+
         builder.Services.AddSingleton<MainPageViewModel>();
         builder.Services.AddSingleton<MainPage>();
+
+		builder.Services.AddSingleton<ListPageViewModel>();
 		builder.Services.AddSingleton<ListPage>();
+
 		builder.Services.AddSingleton<LoginPage>();
 		builder.Services.AddSingleton<LoginPageViewModel>();
+
 		builder.Services.AddSingleton<SignUpPage>();
 		builder.Services.AddSingleton<SignUpPageViewModel>();
+
         builder.Services.AddSingleton<AdminPage>();
-        builder.Services.AddSingleton<RestaurantPage>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
