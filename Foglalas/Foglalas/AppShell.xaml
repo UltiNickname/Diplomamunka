@@ -18,5 +18,11 @@
         <ShellContent Title="Új foglalás" ContentTemplate="{DataTemplate views:MainPage}"/>
         <ShellContent Title="Foglalásaim" ContentTemplate="{DataTemplate views:ListPage}"/>
     </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <StackLayout>
+            <Button Text="Kijelentkezés"/>
+        </StackLayout>
+    </Shell.FlyoutFooter>
     
 </Shell>

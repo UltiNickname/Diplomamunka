@@ -39,7 +39,7 @@ namespace Foglalas.ViewModels
                     Preferences.Set(nameof(App.User), userDetails);
                     App.User = userInfo;
 
-                    await Shell.Current.GoToAsync(nameof(MainPage));
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task ToSignUp()
         {
-            await Shell.Current.GoToAsync(nameof(SignUpPage));
+            await Shell.Current.GoToAsync($"//{nameof(SignUpPage)}");
         }
     }
 }

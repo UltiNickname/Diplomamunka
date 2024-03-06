@@ -2,9 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Foglalas.Views.ListPage"
-             Title="Foglalásaim">
-    <VerticalStackLayout>
-        <ListView ItemsSource="{Binding Reservations}">
+             Title="Főoldal">
+    <VerticalStackLayout Background="#36454F">
+        <ListView ItemsSource="{Binding Reservations}" Background="#36454F" SeparatorColor="#F4F3EE">
+            <ListView.Header>
+                <StackLayout BackgroundColor="#8D80AD">
+                    <Label Margin="10,0,0,0"
+                           Text="Foglalásaim"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#F4F3EE"/>
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -16,15 +25,41 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="1"
-                           Text="{Binding Restauramt}"
-                           FontAttributes="Bold" />
+                                   Text="{Binding Restaurant.Name}"
+                                   FontAttributes="Bold"
+                                   TextColor="#F4F3EE"/>
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding Size}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
                             <Label Grid.Row="1"
-                           Grid.Column="1"
-                           Text="{Binding Size}"
-                           FontAttributes="Italic"
-                           VerticalOptions="End" />
+                                   Grid.Column="2"
+                                   Text="{Binding Date}"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="3"
+                                   Text="{Binding StartTime}"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="4"
+                                   Text="-"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="5"
+                                   Text="{Binding FinishedTime}"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
