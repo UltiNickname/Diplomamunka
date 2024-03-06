@@ -2,7 +2,7 @@
 using Foglalas.ViewModels;
 using Foglalas.Models;
 
-namespace Foglalas;
+namespace Foglalas.Views;
 
 public partial class MainPage : ContentPage
 {
