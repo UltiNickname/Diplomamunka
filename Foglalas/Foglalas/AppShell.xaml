@@ -12,11 +12,11 @@
         ContentTemplate="{DataTemplate local:LoginPage}"
         FlyoutItemIsVisible="False"
         Shell.FlyoutBehavior="Disabled"
-        Route="LoginPage" />
+        Route="LoginPage"/>
 
     <FlyoutItem Route="MainPage" FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Új foglalás" ContentTemplate="{DataTemplate views:MainPage}"/>
         <ShellContent Title="Foglalásaim" ContentTemplate="{DataTemplate views:ListPage}"/>
     </FlyoutItem>
-
+    
 </Shell>

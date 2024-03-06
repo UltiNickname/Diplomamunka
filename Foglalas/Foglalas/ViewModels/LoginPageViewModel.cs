@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Foglalas.Models;
 using Foglalas.Services;
+using Foglalas.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
