@@ -36,7 +36,8 @@
                             <Label Grid.Column="1"
                                    Text="{Binding Restaurant.Name}"
                                    FontAttributes="Bold"
-                                   TextColor="#F4F3EE"/>
+                                   TextColor="#F4F3EE"
+                                   FontSize="20"/>
                             <Label Grid.Row="1" 
                                    Grid.Column="1"
                                    Text="{Binding Date}"
@@ -74,7 +75,8 @@
                                    Grid.Column="7"
                                    Text="Foglalás neve"
                                    VerticalOptions="End"
-                                   TextColor="#F4F3EE"/>
+                                   TextColor="#F4F3EE"
+                                   FontSize="12"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
