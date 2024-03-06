@@ -33,9 +33,15 @@ namespace FoglalasAPI.Controllers
                         RestaurantId = r.RestaurantId,
                         Name = r.Name,
                         City = r.City,
+                        Opening = r.Opening,
+                        Closing = r.Closing,
+                        KitchenClosing = r.KitchenClosing,
                         Outdoor = r.Outdoor,
                         SeperateRoom = r.SeperateRoom,
-                        FixedTables = r.FixedTables
+                        FixedTables = r.FixedTables,
+                        Menu = r.Menu,
+                        AnimalFriendly = r.AnimalFriendly,
+                        SzepKartyaAvailable = r.SzepKartyaAvailable
                     }).ToList();
         }
 
@@ -69,9 +75,15 @@ namespace FoglalasAPI.Controllers
                 RestaurantId = restaurant.RestaurantId,
                 Name = restaurant.Name,
                 City = _appDbContext.Cities.Find(restaurant.City.CityId),
+                Opening = restaurant.Opening,
+                Closing = restaurant.Closing,
+                KitchenClosing = restaurant.KitchenClosing,
                 Outdoor = restaurant.Outdoor,
                 SeperateRoom = restaurant.SeperateRoom,
-                FixedTables = restaurant.FixedTables
+                FixedTables = restaurant.FixedTables,
+                Menu = restaurant.Menu,
+                AnimalFriendly = restaurant.AnimalFriendly,
+                SzepKartyaAvailable = restaurant.SzepKartyaAvailable
             };
             _appDbContext.Restaurants.Add(dbRestaurant);
             _appDbContext.SaveChanges();

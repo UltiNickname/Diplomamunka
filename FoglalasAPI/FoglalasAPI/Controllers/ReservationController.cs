@@ -42,6 +42,7 @@ namespace FoglalasAPI.Controllers
                         ReservationId = r.ReservationId,
                         Restaurant = r.Restaurant,
                         User = r.User,
+                        Name = r.Name,
                         Size = r.Size,
                         Date = r.Date,
                         StartTime = r.StartTime,
@@ -61,6 +62,7 @@ namespace FoglalasAPI.Controllers
                         ReservationId = r.ReservationId,
                         Restaurant = r.Restaurant,
                         User = r.User,
+                        Name = r.Name,
                         Size = r.Size,
                         Date = r.Date,
                         StartTime = r.StartTime,
@@ -78,6 +80,7 @@ namespace FoglalasAPI.Controllers
             {
                 Restaurant = _appDbContext.Restaurants.Find(reservation.Restaurant.RestaurantId),
                 User = _appDbContext.Users.Find(reservation.User.UserId),
+                Name = reservation.Name,
                 Size = reservation.Size,
                 Date = reservation.Date,
                 StartTime = reservation.StartTime,

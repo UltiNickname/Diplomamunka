@@ -16,6 +16,8 @@ namespace FoglalasAPI.Models
         [ForeignKey("UserFK")]
         public User User { get; set; }
         [Required]
+        public string Name { get; set; }
+        [Required]
         public int Size { get; set; }
         [Required]
         public DateOnly Date { get; set; }
