@@ -48,6 +48,7 @@ namespace Foglalas.ViewModels
                     {
                         IsTerraceEnable = _selectedRestaurant.Outdoor;
                         IsSeperateRoomEnable = _selectedRestaurant.SeperateRoom;
+                        IsAnimalFriendly = _selectedRestaurant.AnimalFriendly;
                     }
                 }
             }
@@ -80,6 +81,9 @@ namespace Foglalas.ViewModels
         private bool _isRestaurantEnabled;
 
         [ObservableProperty]
+        private bool _isAnimalFriendly;
+
+        [ObservableProperty]
         private bool _isTerraceEnable;
 
         [ObservableProperty]
@@ -98,6 +102,7 @@ namespace Foglalas.ViewModels
             IsRestaurantEnabled = false;
             IsTerraceEnable = false;
             IsRestaurantEnabled = false;
+            IsAnimalFriendly = false;
             this.cityService = cityService;
         }
 
@@ -139,6 +144,7 @@ namespace Foglalas.ViewModels
                     {
                         Restaurant = SelectedRestaurant,
                         User = App.User,
+                        Name = GivenName,
                         Size = int.Parse(GivenSize),
                         Date = DateOnly.FromDateTime(PickedDate),
                         StartTime = PickedStartTime,

@@ -11,6 +11,7 @@ namespace Foglalas.Models
         public int ReservationId { get; set; }
         public Restaurant Restaurant { get; set; }
         public User User { get; set; }
+        public string Name { get; set; }
         public int Size { get; set; }
         public DateOnly Date { get; set; }
         public TimeSpan StartTime { get; set; }
