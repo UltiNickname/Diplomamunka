@@ -58,6 +58,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Label
                             Grid.Column="1"
@@ -65,7 +66,7 @@
                             Margin="0,0,10,0"
                             />
                         <Label
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Text="Zárás"
                             Margin="0,0,10,0"
                             />
@@ -78,6 +79,12 @@
                         <Label
                             Grid.Row="1"
                             Grid.Column="2"
+                            Text="-"
+                            Margin="0,0,10,0"
+                            />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="3"
                             Text="{Binding ClosingTime}"
                             Margin="0,0,10,0"
                             />
