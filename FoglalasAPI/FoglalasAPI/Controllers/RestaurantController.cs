@@ -66,6 +66,47 @@ namespace FoglalasAPI.Controllers
                                                 select rvt.Count * t.Size).Sum();
         }
 
+        [HttpGet]
+        [Route("SeperateRoom")]
+        public bool IsSeperateRoomAvailable(int restaurantId, DateOnly date)
+        {
+            var seperateRoomReservations = (from rv in _appDbContext.Reservations
+                                   where rv.Restaurant.RestaurantId == restaurantId && rv.Date == date && rv.SeperateRoom == true
+                                   select rv.ReservationId).ToList();
+            if (seperateRoomReservations.Count() > 0)
+                return true;
+            else return false;
+        }
+
+        [HttpGet]
+        [Route("TableAvailable")]
+        public bool IsTableSizeAvailable(int restaurantId, int size)
+        {
+            var tableSize = (from rt in _appDbContext.RestaurantTables
+                             join t in _appDbContext.Tables on rt.Table.TableId equals t.TableId
+                             where rt.RestaurantId == restaurantId && t.Size == size
+                             select rt.Count).ToList();
+            if (tableSize.Count() > 0)
+                return true;
+            else return false;
+        }
+
+        [HttpGet]
+        [Route("TableCount")]
+        public int TableSizeCount(int restaurantId, int size, DateOnly date, TimeOnly start, TimeOnly end)
+        {
+            return (from rt in _appDbContext.RestaurantTables
+                    join t in _appDbContext.Tables on rt.Table.TableId equals t.TableId
+                    where rt.RestaurantId == restaurantId && t.Size == size
+                    select rt.Count).Sum() 
+                    -
+                    (from rvt in _appDbContext.ReservedTables
+                    join t in _appDbContext.Tables on rvt.Table.TableId equals t.TableId
+                    join rv in _appDbContext.Reservations on rvt.ReservationId equals rv.ReservationId
+                    where rv.Restaurant.RestaurantId == restaurantId && rv.Date == date && (rv.StartTime < end && rv.FinishedTime > start)
+                    select rvt.Count).Sum();
+        }
+
         [HttpPost]
         [Route("AddNewRestaurant")]
         public async Task<IActionResult> AddRestaurant(Restaurant restaurant)

@@ -29,5 +29,14 @@ namespace FoglalasAPI.Controllers
                         Size = t.Size,
                     }).ToList();
         }
+
+        [HttpPost]
+        [Route("AddNewTable")]
+        public async Task<IActionResult> AddTable(Table table)
+        {
+            _appDbContext.Tables.Add(table);
+            _appDbContext.SaveChanges();
+            return Ok("Table created!");
+        }
     }
 }
