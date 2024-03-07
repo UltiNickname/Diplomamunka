@@ -26,11 +26,82 @@
                 SelectedItem="{Binding SelectedRestaurant}" 
                 Margin="10"
                 TitleColor="{OnPlatform White, Android=Black, WinUI=White}"/>
-            <Label
-                IsVisible="{Binding IsAnimalFriendly}"
-                Text="Állatbarát hely"
-                FontAttributes="Bold"
-                TextColor="White"/>
+            
+            <Frame Margin="10,0,0,0" BackgroundColor="White" VerticalOptions="StartAndExpand" IsVisible="{Binding IsRestaurantPicked}">
+                <VerticalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label
+                            IsVisible="{Binding IsRestaurantPicked}"
+                            Text="Étterem teljes kapacitása: "
+                            FontAttributes="Bold"/>
+                        <Label
+                            IsVisible="{Binding IsRestaurantPicked}"
+                            Text="{Binding MaxCapacity}"
+                            FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label
+                            IsVisible="{Binding IsRestaurantPicked}"
+                            Text="Étterem jelenlegi kapacitása: "
+                            FontAttributes="Bold"/>
+                        <Label
+                            IsVisible="{Binding IsRestaurantPicked}"
+                            Text="{Binding CurrentCapacity}"
+                            FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="1"
+                            Text="Nyitás"
+                            Margin="0,0,10,0"
+                            />
+                        <Label
+                            Grid.Column="2"
+                            Text="Zárás"
+                            Margin="0,0,10,0"
+                            />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding OpeningTime}"
+                            Margin="0,0,10,0"
+                            />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="{Binding ClosingTime}"
+                            Margin="0,0,10,0"
+                            />
+                    </Grid>
+                    <Label
+                        IsVisible="{Binding HasMenu}"
+                        Text="Az étteremben déli menüztetés van, így 11:30 és 13:00 között nem tud foglalni!"
+                        FontAttributes="Italic"
+                        TextColor="Red"
+                        Margin="10,5,0,5"/>
+                    <Label
+                        IsVisible="{Binding IsAnimalFriendly}"
+                        Text="(Állatbarát hely)"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        Margin="10,5,0,5"/>
+                    <Label
+                        IsVisible="{Binding SzepCard}"
+                        Text="(SZÉP kártya elfogadó hely)"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        Margin="10,5,0,5"/>
+                </VerticalStackLayout>
+            </Frame>
             <Frame Margin="10,0,0,0" BackgroundColor="#8D80AD">
                 <VerticalStackLayout>
                     <RadioButton

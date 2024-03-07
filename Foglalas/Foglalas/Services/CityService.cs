@@ -10,6 +10,38 @@ namespace Foglalas.Services
 {
     public partial class CityService : ICityService
     {
+        public async Task<List<City>> Cities()
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var cityList = new List<City>();
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/city/GetAll";
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        cityList = JsonConvert.DeserializeObject<List<City>>(json);
+                        return cityList;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
         public async Task<List<Restaurant>> Restaurants()
         {
             try
@@ -42,31 +74,64 @@ namespace Foglalas.Services
                 throw ex.InnerException;
             }
         }
-        public async Task<List<City>> Cities()
+        public async Task<int> MaxCapacity(int id)
         {
             try
             {
                 if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
                 {
-                    var cityList = new List<City>();
+                    int maxCapacity = 0;
                     var client = new HttpClient();
-                    string url = "http://192.168.0.80:8099/api/city/GetAll";
+                    string url = "http://192.168.0.80:8099/api/restaurant/GetCapacity?restaurantId="+id;
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        cityList = JsonConvert.DeserializeObject<List<City>>(json);
-                        return cityList;
+                        maxCapacity = int.Parse(json);
+                        return maxCapacity;
                     }
                     else
                     {
-                        return null;
+                        return 0;
                     }
                 }
                 else
                 {
-                    return null;
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
+
+        public async Task<int> CurrentCapacity(int id, DateOnly date, TimeSpan start, TimeSpan finish)
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    int currentCapacity = 0;
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/restaurant/GetCurrentCapacity?restaurantId="+id+"&date="+date.ToString()+"&start="+start.ToString()+"&end="+finish.ToString();
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        currentCapacity = int.Parse(json);
+                        return currentCapacity;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return 0;
                 }
             }
             catch (Exception ex)

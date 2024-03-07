@@ -49,6 +49,12 @@ namespace Foglalas.ViewModels
                         IsTerraceEnable = _selectedRestaurant.Outdoor;
                         IsSeperateRoomEnable = _selectedRestaurant.SeperateRoom;
                         IsAnimalFriendly = _selectedRestaurant.AnimalFriendly;
+                        HasMenu = _selectedRestaurant.Menu;
+                        SzepCard = _selectedRestaurant.SzepKartyaAvailable;
+                        GetCapacity(_selectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
+                        OpeningTime = _selectedRestaurant.Opening;
+                        ClosingTime = _selectedRestaurant.Closing;
+                        IsRestaurantPicked = true;
                     }
                 }
             }
@@ -81,13 +87,34 @@ namespace Foglalas.ViewModels
         private bool _isRestaurantEnabled;
 
         [ObservableProperty]
+        private bool _isRestaurantPicked;
+
+        [ObservableProperty]
         private bool _isAnimalFriendly;
+
+        [ObservableProperty]
+        private bool _hasMenu;
+
+        [ObservableProperty]
+        private bool _szepCard;
 
         [ObservableProperty]
         private bool _isTerraceEnable;
 
         [ObservableProperty]
         private bool _isSeperateRoomEnable;
+
+        [ObservableProperty]
+        private int _maxCapacity;
+
+        [ObservableProperty]
+        private int _currentCapacity;
+
+        [ObservableProperty]
+        private TimeOnly _openingTime;
+
+        [ObservableProperty]
+        private TimeOnly _closingTime;
 
         [ObservableProperty]
         private DateTime _minDate = DateTime.Today.AddDays(1);
@@ -125,6 +152,12 @@ namespace Foglalas.ViewModels
             Restaurants.AddRange(restaurants.Where(i => i.City.CityId == id).ToList());
         }
 
+        private async void GetCapacity(int id, DateOnly date, TimeSpan start, TimeSpan finish)
+        {
+            MaxCapacity = await cityService.MaxCapacity(id);
+            CurrentCapacity = await cityService.CurrentCapacity(id, date, start, finish);
+        }
+
         [RelayCommand]
         public async Task MakeReservation()
         {
@@ -155,7 +188,7 @@ namespace Foglalas.ViewModels
                     string reservationInfo = await reservationService.Reserve(newReservation);
                     if (reservationInfo == "Reservation successfull!")
                     {
-                        await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!", "OK");
+                        await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!\nKöszönjük!", "OK");
                     }
                     else
                     {
