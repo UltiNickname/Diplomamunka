@@ -50,10 +50,12 @@ namespace Foglalas.ViewModels
                         IsSeperateRoomEnable = _selectedRestaurant.SeperateRoom;
                         IsAnimalFriendly = _selectedRestaurant.AnimalFriendly;
                         HasMenu = _selectedRestaurant.Menu;
+                        HasFixedTables = _selectedRestaurant.FixedTables;
                         SzepCard = _selectedRestaurant.SzepKartyaAvailable;
                         GetCapacity(_selectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
                         OpeningTime = _selectedRestaurant.Opening;
                         ClosingTime = _selectedRestaurant.Closing;
+                        KitchenClosing = _selectedRestaurant.KitchenClosing;
                         IsRestaurantPicked = true;
                     }
                 }
@@ -75,11 +77,33 @@ namespace Foglalas.ViewModels
         [ObservableProperty]
         private DateTime _pickedDate;
 
-        [ObservableProperty]
         private TimeSpan _pickedStartTime;
+        public TimeSpan PickedStartTime
+        {
+            get => _pickedStartTime;
+            set
+            {
+                if (_pickedStartTime != value)
+                {
+                    _pickedStartTime = value;
+                    CheckTime();
+                }
+            }
+        }
 
-        [ObservableProperty]
         private TimeSpan _pickedEndTime;
+        public TimeSpan PickedEndTime
+        {
+            get => _pickedEndTime;
+            set
+            {
+                if (_pickedEndTime != value)
+                {
+                    _pickedEndTime = value;
+                    CheckTime();
+                }
+            }
+        }
 
         //Hidden attributes
 
@@ -96,6 +120,9 @@ namespace Foglalas.ViewModels
         private bool _hasMenu;
 
         [ObservableProperty]
+        private bool _hasFixedTables;
+
+        [ObservableProperty]
         private bool _szepCard;
 
         [ObservableProperty]
@@ -103,6 +130,9 @@ namespace Foglalas.ViewModels
 
         [ObservableProperty]
         private bool _isSeperateRoomEnable;
+
+        [ObservableProperty]
+        private bool _isTimeOkay;
 
         [ObservableProperty]
         private int _maxCapacity;
@@ -117,6 +147,18 @@ namespace Foglalas.ViewModels
         private TimeOnly _closingTime;
 
         [ObservableProperty]
+        private TimeOnly _kitchenClosing;
+
+        [ObservableProperty]
+        TimeSpan _menustart = new TimeSpan(11, 00, 0);
+
+        [ObservableProperty]
+        TimeSpan _menuend = new TimeSpan(14, 00, 0);
+
+        [ObservableProperty]
+        private bool _isNearClosing;
+
+        [ObservableProperty]
         private DateTime _minDate = DateTime.Today.AddDays(1);
 
         [ObservableProperty]
@@ -126,6 +168,7 @@ namespace Foglalas.ViewModels
         public MainPageViewModel(ICityService cityService) 
         {
             LoadCities();
+            IsTimeOkay = false;
             IsRestaurantEnabled = false;
             IsTerraceEnable = false;
             IsRestaurantEnabled = false;
@@ -157,6 +200,23 @@ namespace Foglalas.ViewModels
             MaxCapacity = await cityService.MaxCapacity(id);
             CurrentCapacity = await cityService.CurrentCapacity(id, date, start, finish);
         }
+        public async void CheckTime()
+        {
+            IsNearClosing = false;
+            if (OpeningTime <= TimeOnly.FromTimeSpan(PickedStartTime) && TimeOnly.FromTimeSpan(PickedEndTime) <= ClosingTime && TimeOnly.FromTimeSpan(PickedStartTime) < TimeOnly.FromTimeSpan(PickedEndTime))
+            {
+                if(HasMenu &&  TimeOnly.FromTimeSpan(Menustart) <= TimeOnly.FromTimeSpan(PickedStartTime) && TimeOnly.FromTimeSpan(PickedEndTime) <= TimeOnly.FromTimeSpan(Menuend))
+                    IsTimeOkay = false;
+                else
+                    IsTimeOkay = true;
+                if (KitchenClosing < TimeOnly.FromTimeSpan(PickedEndTime))
+                    IsNearClosing = true;
+                else
+                    IsNearClosing = false;
+            }
+            else
+                IsTimeOkay = false;
+        }
 
         [RelayCommand]
         public async Task MakeReservation()
@@ -182,8 +242,8 @@ namespace Foglalas.ViewModels
                         Date = DateOnly.FromDateTime(PickedDate),
                         StartTime = PickedStartTime,
                         FinishedTime = PickedEndTime,
-                        Outdoor = Terrace,
-                        SeperateRoom = SeperateRoom
+                        Outdoor = Terrace&&IsTerraceEnable,
+                        SeperateRoom = SeperateRoom&&IsSeperateRoomEnable
                     };
                     string reservationInfo = await reservationService.Reserve(newReservation);
                     if (reservationInfo == "Reservation successfull!")

@@ -29,6 +29,13 @@
             
             <Frame Margin="10,0,0,0" BackgroundColor="White" VerticalOptions="StartAndExpand" IsVisible="{Binding IsRestaurantPicked}">
                 <VerticalStackLayout>
+                    <Label
+                        IsVisible="{Binding HasFixedTables}"
+                        Text="Ez az étterem elsősorban talajhoz rögzített asztalokkal rendelkezik, így sajnos nem tudja biztosítani nagyobb társaságok számára az asztalok összetolását. Itt csak megfelelő asztalméretekre tud foglalni!"
+                        FontAttributes="Italic,Bold"
+                        FontSize="16"
+                        TextColor="Red"
+                        Margin="10,5,0,5"/>
                     <HorizontalStackLayout>
                         <Label
                             IsVisible="{Binding IsRestaurantPicked}"
@@ -91,7 +98,7 @@
                     </Grid>
                     <Label
                         IsVisible="{Binding HasMenu}"
-                        Text="Az étteremben déli menüztetés van, így 11:30 és 13:00 között nem tud foglalni!"
+                        Text="Az étteremben déli menüztetés van, így 11:00 és 14:00 között nem tud foglalni!"
                         FontAttributes="Italic"
                         TextColor="Red"
                         Margin="10,5,0,5"/>
@@ -164,16 +171,31 @@
                     <TimePicker 
                         Background="White" 
                         Format="HH:mm" 
-                        Time="{Binding PickedStartTime}" 
+                        Time="{Binding PickedStartTime}"
                         Margin="10"/>
                     <Label Text="-tól" Margin="0, 15, 30, 0" TextColor="#F4F3EE"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
-                    <TimePicker Background="White" Format="HH:mm" Time="{Binding PickedEndTime}" Margin="10"/>
+                    <TimePicker 
+                        Background="White" 
+                        Format="HH:mm" 
+                        Time="{Binding PickedEndTime}" 
+                        Margin="10"/>
                     <Label Text="-ig" Margin="0, 15" TextColor="#F4F3EE"/>
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
-            <Button BackgroundColor="#8D80AD" Text="Foglalás" Command="{Binding MakeReservationCommand}"/>
+            <Label 
+                IsVisible="{Binding IsTimeOkay}"
+                Text="Sajnos nem lehet foglalni az adott időintervallumban Adjon meg egy megfellő időintervallumot"
+                TextColor="White"
+                FontAttributes="Bold"
+                Margin="10,0,0,0"/>
+            <Label 
+                IsVisible="{Binding IsNearClosing}"
+                Text="Az Ön által megadott foglalási időpont túlnyúlik a konyha nyitvatartási idején. Az étterem így nem tudja garantálni, hogy a foglalás teljes ideje alatt tudnak meleg étellel kínálni."
+                TextColor="White"
+                Margin="10,0,0,0"/>
+            <Button BackgroundColor="#8D80AD" Text="Foglalás" Command="{Binding MakeReservationCommand}" IsEnabled="{Binding IsTimeOkay}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
