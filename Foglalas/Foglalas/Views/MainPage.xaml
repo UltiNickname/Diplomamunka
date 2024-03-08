@@ -185,7 +185,7 @@
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
             <Label 
-                IsVisible="{Binding IsTimeOkay}"
+                IsVisible="{Binding IsTimeOkayR}"
                 Text="Sajnos nem lehet foglalni az adott időintervallumban Adjon meg egy megfellő időintervallumot"
                 TextColor="White"
                 FontAttributes="Bold"

@@ -135,6 +135,9 @@ namespace Foglalas.ViewModels
         private bool _isTimeOkay;
 
         [ObservableProperty]
+        private bool _isTimeOkayR;
+
+        [ObservableProperty]
         private int _maxCapacity;
 
         [ObservableProperty]
@@ -169,6 +172,7 @@ namespace Foglalas.ViewModels
         {
             LoadCities();
             IsTimeOkay = false;
+            IsTimeOkayR = false;
             IsRestaurantEnabled = false;
             IsTerraceEnable = false;
             IsRestaurantEnabled = false;
@@ -216,6 +220,7 @@ namespace Foglalas.ViewModels
             }
             else
                 IsTimeOkay = false;
+            IsTimeOkayR = !IsTimeOkay;
         }
 
         [RelayCommand]
@@ -240,8 +245,8 @@ namespace Foglalas.ViewModels
                         Name = GivenName,
                         Size = int.Parse(GivenSize),
                         Date = DateOnly.FromDateTime(PickedDate),
-                        StartTime = PickedStartTime,
-                        FinishedTime = PickedEndTime,
+                        StartTime = PickedStartTime.Subtract(new TimeSpan(0,30,0)),
+                        FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
                         Outdoor = Terrace&&IsTerraceEnable,
                         SeperateRoom = SeperateRoom&&IsSeperateRoomEnable
                     };
