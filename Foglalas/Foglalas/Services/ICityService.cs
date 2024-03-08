@@ -13,5 +13,6 @@ namespace Foglalas.Services
         public Task<List<City>> Cities();
         public Task<int> MaxCapacity(int id);
         public Task<int> CurrentCapacity(int id, DateOnly date, TimeSpan start, TimeSpan finish);
+        public Task<bool> SeperateRoomAvailability(int id, DateOnly date);
     }
 }

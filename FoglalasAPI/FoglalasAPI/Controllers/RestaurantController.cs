@@ -74,8 +74,8 @@ namespace FoglalasAPI.Controllers
                                    where rv.Restaurant.RestaurantId == restaurantId && rv.Date == date && rv.SeperateRoom == true
                                    select rv.ReservationId).ToList();
             if (seperateRoomReservations.Count() > 0)
-                return true;
-            else return false;
+                return false;
+            else return true;
         }
 
         [HttpGet]

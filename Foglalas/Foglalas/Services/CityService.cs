@@ -139,5 +139,38 @@ namespace Foglalas.Services
                 throw ex.InnerException;
             }
         }
+
+        public async Task<bool> SeperateRoomAvailability(int id, DateOnly date)
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    bool currentCapacity = false;
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/restaurant/SeperateRoom?restaurantId=" + id + "&date=" + date.ToString();
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        currentCapacity = bool.Parse(json);
+                        return currentCapacity;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
     }
 }
