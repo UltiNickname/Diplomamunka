@@ -238,7 +238,7 @@ namespace Foglalas.ViewModels
             if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && GivenSize != null)
             {
                 SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));
-                if (SelectedRestaurant.SeperateRoom && IsSeperateRoomAvailable)
+                if (SelectedRestaurant.SeperateRoom && !IsSeperateRoomAvailable && SeperateRoom)
                 {
                     await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott napra már lefoglalták a különtermet.", "OK");
                 }
