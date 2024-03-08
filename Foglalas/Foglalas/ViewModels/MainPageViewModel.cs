@@ -204,7 +204,7 @@ namespace Foglalas.ViewModels
             MaxCapacity = await cityService.MaxCapacity(id);
             CurrentCapacity = await cityService.CurrentCapacity(id, date, start, finish);
         }
-        public async void CheckTime()
+        public void CheckTime()
         {
             IsNearClosing = false;
             if (OpeningTime <= TimeOnly.FromTimeSpan(PickedStartTime) && TimeOnly.FromTimeSpan(PickedEndTime) <= ClosingTime && TimeOnly.FromTimeSpan(PickedStartTime) < TimeOnly.FromTimeSpan(PickedEndTime))
