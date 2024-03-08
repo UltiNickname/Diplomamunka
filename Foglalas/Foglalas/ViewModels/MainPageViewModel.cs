@@ -244,6 +244,10 @@ namespace Foglalas.ViewModels
                 }
                 else
                 {
+                    if (PickedDate == default(DateTime))
+                    {
+                        PickedDate = MinDate;
+                    }
                     bool answer = await Shell.Current.DisplayAlert
                     ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
                     + SelectedRestaurant.Name + "\n"
