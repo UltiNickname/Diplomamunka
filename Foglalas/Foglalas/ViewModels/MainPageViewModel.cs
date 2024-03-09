@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Foglalas.ViewModels
 {
@@ -155,6 +156,9 @@ namespace Foglalas.ViewModels
         private bool _isFreeTable;
 
         [ObservableProperty]
+        private int _tableNumber;
+
+        [ObservableProperty]
         private TimeOnly _openingTime;
 
         [ObservableProperty]
@@ -249,27 +253,27 @@ namespace Foglalas.ViewModels
             IsTimeOkayR = !IsTimeOkay;
         }
 
-        public async Task<bool> HasThatTable(int id, int size)
-        {
-            bool hasSize = await cityService.HasGiveSize(id, size);
-            return hasSize;
-        }
-
         public async void SeperateRoomAvailable(int id, DateOnly date)
         {
             IsSeperateRoomAvailable = await cityService.SeperateRoomAvailability(id, date);
         }
 
+        public async Task<int> TableAvailable(int id, int size, DateOnly date, TimeSpan start, TimeSpan finish) => TableNumber = await cityService.AvailableTable(id, size, date, start, finish);
+
         [RelayCommand]
         public async Task MakeReservation()
         {
-            if(SelectedRestaurant.FixedTables == true)
             if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && (GivenSize != null || GivenTable != 0))
             {
-                SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));
+                    SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));
+                    await TableAvailable(SelectedRestaurant.RestaurantId, GivenTable, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
                     if (SelectedRestaurant.SeperateRoom && !IsSeperateRoomAvailable && SeperateRoom)
                     {
                         await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott napra már lefoglalták a különtermet.", "OK");
+                    }
+                    else if(SelectedRestaurant.FixedTables && TableNumber == 0)
+                    {
+                        await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott asztal méret már nem elérhető az ön által kívánt időpontban.", "OK");
                     }
                     else
                     {

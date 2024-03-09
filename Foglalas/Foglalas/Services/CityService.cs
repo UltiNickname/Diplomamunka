@@ -171,7 +171,6 @@ namespace Foglalas.Services
                 throw ex.InnerException;
             }
         }
-
         public async Task<bool> SeperateRoomAvailability(int id, DateOnly date)
         {
             try
@@ -229,6 +228,38 @@ namespace Foglalas.Services
                 else
                 {
                     return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
+        public async Task<int> AvailableTable(int id, int size, DateOnly date, TimeSpan start, TimeSpan finish)
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    int currentCapacity = 0;
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/restaurant/TableCount?restaurantId=" + id + "&size=" + size +"&date=" + date.ToString() + "&start=" + start.ToString() + "&end=" + finish.ToString();
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        currentCapacity = int.Parse(json);
+                        return currentCapacity;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return 0;
                 }
             }
             catch (Exception ex)
