@@ -136,6 +136,7 @@
             </Frame>
             <HorizontalStackLayout>
                 <Entry
+                    IsVisible="{Binding IsFreeTable}"
                     Background="White"
                     x:Name="PersonEntry" 
                     Keyboard="Numeric" 
@@ -145,6 +146,15 @@
                     HorizontalOptions="Start"
                     Margin="10"
                     Text="{Binding GivenSize}"/>
+                <Picker
+                    IsVisible="{Binding HasFixedTables}"
+                    ItemsSource="{Binding Tables}"
+                    Background="White"
+                    x:Name="PersonEntryForFixed"
+                    HorizontalOptions="Start"
+                    Margin="10"
+                    SelectedItem="{Binding GivenTable}"
+                    TitleColor="{OnPlatform White, Android=Black, WinUI=White}"/>
                 <Label Text=" főre foglalok asztalt" Margin="0,20" FontAttributes="Bold" TextColor="#F4F3EE"/>
             </HorizontalStackLayout>
             <Label Text="Milyen néver lesz a foglalás?" Margin="10" TextColor="#F4F3EE"/>

@@ -57,6 +57,11 @@ namespace Foglalas.ViewModels
                         ClosingTime = _selectedRestaurant.Closing;
                         KitchenClosing = _selectedRestaurant.KitchenClosing;
                         IsRestaurantPicked = true;
+                        IsFreeTable = !_selectedRestaurant.FixedTables;
+                        GivenSize = null;
+                        GivenTable = 0;
+                        if (HasFixedTables)
+                            LoadTables(_selectedRestaurant.RestaurantId);
                     }
                 }
             }
@@ -70,6 +75,9 @@ namespace Foglalas.ViewModels
 
         [ObservableProperty]
         private string _givenSize;
+
+        [ObservableProperty]
+        private int _givenTable;
 
         [ObservableProperty]
         private string _givenName;
@@ -144,6 +152,9 @@ namespace Foglalas.ViewModels
         private int _currentCapacity;
 
         [ObservableProperty]
+        private bool _isFreeTable;
+
+        [ObservableProperty]
         private TimeOnly _openingTime;
 
         [ObservableProperty]
@@ -171,9 +182,12 @@ namespace Foglalas.ViewModels
         private DateTime _maxDate = DateTime.Today.AddDays(122);
         public ObservableRangeCollection<City> Cities { get; set; } = new();
         public ObservableRangeCollection<Restaurant> Restaurants { get; set; } = new();
+        public ObservableRangeCollection<int> Tables { get; set; } = new();
         public MainPageViewModel(ICityService cityService) 
         {
             LoadCities();
+            HasFixedTables = false;
+            IsFreeTable = true;
             IsTimeOkay = false;
             IsTimeOkayR = false;
             IsRestaurantEnabled = false;
@@ -200,6 +214,15 @@ namespace Foglalas.ViewModels
             if (Restaurants.Count > 0)
                 Restaurants.Clear();
             Restaurants.AddRange(restaurants.Where(i => i.City.CityId == id).ToList());
+        }
+        private async void LoadTables(int id)
+        {
+            var tables = await cityService.Tables(id);
+            if (tables == null)
+                return;
+            if (Tables.Count > 0)
+                Tables.Clear();
+            Tables.AddRange(tables);
         }
 
         private async void GetCapacity(int id, DateOnly date, TimeSpan start, TimeSpan finish)
@@ -241,52 +264,83 @@ namespace Foglalas.ViewModels
         public async Task MakeReservation()
         {
             if(SelectedRestaurant.FixedTables == true)
-            if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && GivenSize != null)
+            if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && (GivenSize != null || GivenTable != 0))
             {
                 SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));
-                if (SelectedRestaurant.SeperateRoom && !IsSeperateRoomAvailable && SeperateRoom)
-                {
-                    await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott napra már lefoglalták a különtermet.", "OK");
-                }
-                else
-                {
-                    if (PickedDate == default(DateTime))
+                    if (SelectedRestaurant.SeperateRoom && !IsSeperateRoomAvailable && SeperateRoom)
                     {
-                        PickedDate = MinDate;
+                        await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott napra már lefoglalták a különtermet.", "OK");
                     }
-                    bool answer = await Shell.Current.DisplayAlert
-                    ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
-                    + SelectedRestaurant.Name + "\n"
-                    + GivenName + "\n"
-                    + GivenSize + " fő \n"
-                    + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
-                    if (answer)
+                    else
                     {
-                        ReservationService reservationService = new ReservationService();
-
-                        Reservation newReservation = new Reservation()
+                        if (PickedDate == default(DateTime))
                         {
-                            Restaurant = SelectedRestaurant,
-                            User = App.User,
-                            Name = GivenName,
-                            Size = int.Parse(GivenSize),
-                            Date = DateOnly.FromDateTime(PickedDate),
-                            StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
-                            FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
-                            Outdoor = Terrace && IsTerraceEnable,
-                            SeperateRoom = SeperateRoom && IsSeperateRoomEnable
-                        };
-                        string reservationInfo = await reservationService.Reserve(newReservation);
-                        if (reservationInfo == "Reservation successfull!")
+                            PickedDate = MinDate;
+                        }
+                        bool answer;
+                        if (HasFixedTables)
                         {
-                            await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!\nKöszönjük!", "OK");
+                            answer = await Shell.Current.DisplayAlert
+                                    ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
+                                    + SelectedRestaurant.Name + "\n"
+                                    + GivenName + "\n"
+                                    + GivenTable + " fő \n"
+                                    + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
                         }
                         else
                         {
-                            await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
+                            answer = await Shell.Current.DisplayAlert
+                                    ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
+                                    + SelectedRestaurant.Name + "\n"
+                                    + GivenName + "\n"
+                                    + GivenSize + " fő \n"
+                                    + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
+                        }
+                        if (answer)
+                        {
+                            ReservationService reservationService = new ReservationService();
+                            if (_selectedRestaurant.FixedTables)
+                            {
+                                Reservation newReservation = new Reservation()
+                                {
+                                    Restaurant = SelectedRestaurant,
+                                    User = App.User,
+                                    Name = GivenName,
+                                    Size = GivenTable,
+                                    Date = DateOnly.FromDateTime(PickedDate),
+                                    StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
+                                    FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
+                                    Outdoor = Terrace && IsTerraceEnable,
+                                    SeperateRoom = SeperateRoom && IsSeperateRoomEnable
+                                };
+                            }
+                            else
+                            {
+                                Reservation newReservation = new Reservation()
+                                {
+                                    Restaurant = SelectedRestaurant,
+                                    User = App.User,
+                                    Name = GivenName,
+                                    Size = int.Parse(GivenSize),
+                                    Date = DateOnly.FromDateTime(PickedDate),
+                                    StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
+                                    FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
+                                    Outdoor = Terrace && IsTerraceEnable,
+                                    SeperateRoom = SeperateRoom && IsSeperateRoomEnable
+                                };
+
+                                string reservationInfo = await reservationService.Reserve(newReservation);
+                                if (reservationInfo == "Reservation successfull!")
+                                {
+                                    await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!\nKöszönjük!", "OK");
+                                }
+                                else
+                                {
+                                    await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
+                                }
+                            }
                         }
                     }
-                }                          
             }
             else
             {

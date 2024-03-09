@@ -46,6 +46,16 @@ namespace FoglalasAPI.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllTables")]
+        public IEnumerable<int> GetAllRestaurantTables(int restaurantId)
+        {
+            return (from rt in _appDbContext.RestaurantTables
+                    join t in _appDbContext.Tables on rt.Table.TableId equals t.TableId
+                    where rt.Restaurant.RestaurantId == restaurantId
+                    select t.Size).ToList();
+        }
+
+        [HttpGet]
         [Route("GetCapacity")]
         public int GetCapacity(int restaurantId)
         {

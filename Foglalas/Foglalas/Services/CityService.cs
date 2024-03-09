@@ -74,6 +74,38 @@ namespace Foglalas.Services
                 throw ex.InnerException;
             }
         }
+        public async Task<List<int>> Tables(int id)
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var tables = new List<int>();
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/restaurant/GetAllTables?restaurantId=" + id;
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        tables = JsonConvert.DeserializeObject<List<int>>(json);
+                        return tables;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
         public async Task<int> MaxCapacity(int id)
         {
             try
