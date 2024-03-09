@@ -276,9 +276,16 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task MakeReservation()
         {
+            if (GivenSize == null)
+                GivenSize = "0";
             if (int.Parse(GivenSize) > CurrentCapacity || GivenTable > CurrentCapacity)
             {
                 await Shell.Current.DisplayAlert("Sajnáljuk!", "Az étterem nem tud ekkora társaságot az Ön által megadott időpontban.", "OK");
+                return;
+            }
+            if (PickedDate.DayOfWeek.ToString() == "Sunday")
+            {
+                await Shell.Current.DisplayAlert("Sajnáljuk!", "Az étterem Nincs nyitva az adott napon.", "OK");
                 return;
             }
             if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && (GivenSize != null || GivenTable != 0))
