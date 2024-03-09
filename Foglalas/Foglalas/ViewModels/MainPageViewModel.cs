@@ -294,7 +294,7 @@ namespace Foglalas.ViewModels
                 await Shell.Current.DisplayAlert("Sajnáljuk!", "Az étterem nem tud ekkora társaságot az Ön által megadott időpontban.", "OK");
                 return;
             }
-            if (PickedDate.DayOfWeek.ToString() == "Sunday")
+            if ((ClosedMonday && PickedDate.DayOfWeek.ToString() == "Monday") || (ClosedSunday && PickedDate.DayOfWeek.ToString() == "Sunday"))
             {
                 await Shell.Current.DisplayAlert("Sajnáljuk!", "Az étterem Nincs nyitva az adott napon.", "OK");
                 return;
