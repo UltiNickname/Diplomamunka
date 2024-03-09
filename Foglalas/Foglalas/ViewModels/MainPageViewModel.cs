@@ -96,6 +96,7 @@ namespace Foglalas.ViewModels
                 {
                     _pickedStartTime = value;
                     CheckTime();
+                    GetCapacity(_selectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
                 }
             }
         }
@@ -110,6 +111,7 @@ namespace Foglalas.ViewModels
                 {
                     _pickedEndTime = value;
                     CheckTime();
+                    GetCapacity(_selectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
                 }
             }
         }
@@ -263,6 +265,11 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task MakeReservation()
         {
+            if (int.Parse(GivenSize) < CurrentCapacity || GivenTable < CurrentCapacity)
+            {
+                await Shell.Current.DisplayAlert("Sajnáljuk!", "Az étterem nem tud ekkora társaságot az Ön által megadott időpontban.", "OK");
+                return;
+            }
             if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && (GivenSize != null || GivenTable != 0))
             {
                     SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));
