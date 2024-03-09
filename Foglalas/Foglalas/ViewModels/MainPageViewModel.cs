@@ -57,6 +57,8 @@ namespace Foglalas.ViewModels
                         OpeningTime = _selectedRestaurant.Opening;
                         ClosingTime = _selectedRestaurant.Closing;
                         KitchenClosing = _selectedRestaurant.KitchenClosing;
+                        ClosedMonday = _selectedRestaurant.ClosedOnMonday;
+                        ClosedSunday = _selectedRestaurant.ClosedOnSunday;
                         IsRestaurantPicked = true;
                         IsFreeTable = !_selectedRestaurant.FixedTables;
                         GivenSize = null;
@@ -172,6 +174,12 @@ namespace Foglalas.ViewModels
         private int _tableNumber;
 
         [ObservableProperty]
+        private bool _closedMonday;
+
+        [ObservableProperty]
+        private bool _closedSunday;
+
+        [ObservableProperty]
         private TimeOnly _openingTime;
 
         [ObservableProperty]
@@ -250,7 +258,10 @@ namespace Foglalas.ViewModels
         public void CheckTime()
         {
             IsNearClosing = false;
-            if (OpeningTime <= TimeOnly.FromTimeSpan(PickedStartTime) && TimeOnly.FromTimeSpan(PickedEndTime) <= ClosingTime && TimeOnly.FromTimeSpan(PickedStartTime) < TimeOnly.FromTimeSpan(PickedEndTime))
+            if (OpeningTime <= TimeOnly.FromTimeSpan(PickedStartTime) && 
+                TimeOnly.FromTimeSpan(PickedEndTime) <= ClosingTime && 
+                TimeOnly.FromTimeSpan(PickedStartTime) < TimeOnly.FromTimeSpan(PickedEndTime) && 
+                TimeOnly.FromTimeSpan(PickedStartTime) < TimeOnly.FromTimeSpan(ClosingTime.ToTimeSpan().Subtract(new TimeSpan(0, 30, 0))))
             {
                 if(HasMenu &&  TimeOnly.FromTimeSpan(Menustart) < TimeOnly.FromTimeSpan(PickedEndTime) && TimeOnly.FromTimeSpan(PickedStartTime) < TimeOnly.FromTimeSpan(Menuend))
                     IsTimeOkay = false;

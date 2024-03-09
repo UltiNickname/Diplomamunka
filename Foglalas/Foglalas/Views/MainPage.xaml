@@ -97,6 +97,16 @@
                             />
                     </Grid>
                     <Label
+                        IsVisible="{Binding ClosedMonday}"
+                        Text="Héfőn: ZÁRVA"
+                        FontAttributes="Bold"
+                        Margin="10,5,0,5"/>
+                    <Label
+                        IsVisible="{Binding ClosedMonday}"
+                        Text="Vasárnap: ZÁRVA"
+                        FontAttributes="Bold"
+                        Margin="10,5,0,5"/>
+                    <Label
                         IsVisible="{Binding HasMenu}"
                         Text="Az étteremben déli menüztetés van, így 11:00 és 14:00 között nem tud foglalni!"
                         FontAttributes="Italic"
