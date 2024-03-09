@@ -15,6 +15,9 @@ namespace FoglalasAPI.Models
         [StringLength(50)]
         public string Name { get; set; }
         [Required]
+        [ForeignKey("UserFK")]
+        public User User { get; set; }
+        [Required]
         [ForeignKey("CityFK")]
         public City City { get; set; }
         [Required]
@@ -35,5 +38,9 @@ namespace FoglalasAPI.Models
         public bool AnimalFriendly { get; set; }
         [Required]
         public bool SzepKartyaAvailable { get; set; }
+        [Required]
+        public bool ClosedOnMonday { get; set; }
+        [Required]
+        public bool ClosedOnSunday { get; set; }
     }
 }

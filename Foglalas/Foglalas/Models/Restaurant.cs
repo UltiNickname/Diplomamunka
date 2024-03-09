@@ -10,6 +10,7 @@ namespace Foglalas.Models
     {
         public int RestaurantId { get; set; }
         public string Name { get; set; }
+        public User User { get; set; }
         public City City { get; set; }
         public TimeOnly Opening { get; set; }
         public TimeOnly Closing { get; set; }
@@ -20,5 +21,7 @@ namespace Foglalas.Models
         public bool Menu { get; set; }
         public bool AnimalFriendly { get; set; }
         public bool SzepKartyaAvailable { get; set; }
+        public bool ClosedOnMonday { get; set; }
+        public bool ClosedOnSunday { get; set; }
     }
 }
