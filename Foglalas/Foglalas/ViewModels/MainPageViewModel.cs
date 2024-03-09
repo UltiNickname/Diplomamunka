@@ -303,84 +303,92 @@ namespace Foglalas.ViewModels
             {
                     SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));
                     await TableAvailable(SelectedRestaurant.RestaurantId, GivenTable, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
-                    if (SelectedRestaurant.SeperateRoom && !IsSeperateRoomAvailable && SeperateRoom)
+                if (SelectedRestaurant.SeperateRoom && !IsSeperateRoomAvailable && SeperateRoom)
+                {
+                    await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott napra már lefoglalták a különtermet.", "OK");
+                }
+                else if (SelectedRestaurant.FixedTables && TableNumber == 0)
+                {
+                    await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott asztal méret már nem elérhető az ön által kívánt időpontban.", "OK");
+                }
+                else
+                {
+                    if (PickedDate == default(DateTime))
                     {
-                        await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott napra már lefoglalták a különtermet.", "OK");
+                        PickedDate = MinDate;
                     }
-                    else if(SelectedRestaurant.FixedTables && TableNumber == 0)
+                    bool answer;
+                    if (HasFixedTables)
                     {
-                        await Shell.Current.DisplayAlert("Sajnáljuk!", "Az Ön által választott asztal méret már nem elérhető az ön által kívánt időpontban.", "OK");
+                        answer = await Shell.Current.DisplayAlert
+                                ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
+                                + SelectedRestaurant.Name + "\n"
+                                + GivenName + "\n"
+                                + GivenTable + " fő \n"
+                                + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
                     }
                     else
                     {
-                        if (PickedDate == default(DateTime))
+                        answer = await Shell.Current.DisplayAlert
+                                ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
+                                + SelectedRestaurant.Name + "\n"
+                                + GivenName + "\n"
+                                + GivenSize + " fő \n"
+                                + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
+                    }
+                    if (answer)
+                    {
+                        ReservationService reservationService = new ReservationService();
+                        if (_selectedRestaurant.FixedTables)
                         {
-                            PickedDate = MinDate;
-                        }
-                        bool answer;
-                        if (HasFixedTables)
-                        {
-                            answer = await Shell.Current.DisplayAlert
-                                    ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
-                                    + SelectedRestaurant.Name + "\n"
-                                    + GivenName + "\n"
-                                    + GivenTable + " fő \n"
-                                    + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
-                        }
-                        else
-                        {
-                            answer = await Shell.Current.DisplayAlert
-                                    ("Foglalás adatai:", "Biztosan szeretne foglalni?\n\n"
-                                    + SelectedRestaurant.Name + "\n"
-                                    + GivenName + "\n"
-                                    + GivenSize + " fő \n"
-                                    + PickedDate.Add(PickedStartTime).ToString() + "-" + PickedDate.Add(PickedEndTime).ToString(), "Yes", "No");
-                        }
-                        if (answer)
-                        {
-                            ReservationService reservationService = new ReservationService();
-                            if (_selectedRestaurant.FixedTables)
+                            Reservation newReservation = new Reservation()
                             {
-                                Reservation newReservation = new Reservation()
-                                {
-                                    Restaurant = SelectedRestaurant,
-                                    User = App.User,
-                                    Name = GivenName,
-                                    Size = GivenTable,
-                                    Date = DateOnly.FromDateTime(PickedDate),
-                                    StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
-                                    FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
-                                    Outdoor = Terrace && IsTerraceEnable,
-                                    SeperateRoom = SeperateRoom && IsSeperateRoomEnable
-                                };
+                                Restaurant = SelectedRestaurant,
+                                User = App.User,
+                                Name = GivenName,
+                                Size = GivenTable,
+                                Date = DateOnly.FromDateTime(PickedDate),
+                                StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
+                                FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
+                                Outdoor = Terrace && IsTerraceEnable,
+                                SeperateRoom = SeperateRoom && IsSeperateRoomEnable
+                            };
+                            string reservationInfo = await reservationService.Reserve(newReservation);
+                            if (reservationInfo == "Reservation successfull!")
+                            {
+                                await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!\nKöszönjük!", "OK");
                             }
                             else
                             {
-                                Reservation newReservation = new Reservation()
-                                {
-                                    Restaurant = SelectedRestaurant,
-                                    User = App.User,
-                                    Name = GivenName,
-                                    Size = int.Parse(GivenSize),
-                                    Date = DateOnly.FromDateTime(PickedDate),
-                                    StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
-                                    FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
-                                    Outdoor = Terrace && IsTerraceEnable,
-                                    SeperateRoom = SeperateRoom && IsSeperateRoomEnable
-                                };
-
-                                string reservationInfo = await reservationService.Reserve(newReservation);
-                                if (reservationInfo == "Reservation successfull!")
-                                {
-                                    await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!\nKöszönjük!", "OK");
-                                }
-                                else
-                                {
-                                    await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
-                                }
+                                await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
+                            }
+                        }
+                        else
+                        {
+                            Reservation newReservation = new Reservation()
+                            {
+                                Restaurant = SelectedRestaurant,
+                                User = App.User,
+                                Name = GivenName,
+                                Size = int.Parse(GivenSize),
+                                Date = DateOnly.FromDateTime(PickedDate),
+                                StartTime = PickedStartTime.Subtract(new TimeSpan(0, 30, 0)),
+                                FinishedTime = PickedEndTime.Add(new TimeSpan(0, 30, 0)),
+                                Outdoor = Terrace && IsTerraceEnable,
+                                SeperateRoom = SeperateRoom && IsSeperateRoomEnable
+                            };
+                            string reservationInfo = await reservationService.Reserve(newReservation);
+                            if (reservationInfo == "Reservation successfull!")
+                            {
+                                await Shell.Current.DisplayAlert("Siker!", "A foglalás sikersen megtörtént!\nKöszönjük!", "OK");
+                            }
+                            else
+                            {
+                                await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
                             }
                         }
                     }
+                }
             }
             else
             {

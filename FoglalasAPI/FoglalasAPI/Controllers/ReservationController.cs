@@ -129,12 +129,12 @@ namespace FoglalasAPI.Controllers
             return Ok("Reservation saved!");
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("Delete")]
-        public async Task<IActionResult> DeleteReservation(Reservation reservation)
+        public async Task<IActionResult> DeleteReservation(int reservationId)
         {
-            _appDbContext.Reservations.Remove(reservation);
-            _appDbContext.Database.ExecuteSqlRaw($"DELETE FROM \"ReservedTables\" WHERE \"ReservationId\" = {reservation.ReservationId}");
+            _appDbContext.Database.ExecuteSqlRaw($"DELETE FROM \"Reservations\" WHERE \"ReservationId\" = {reservationId}");
+            _appDbContext.Database.ExecuteSqlRaw($"DELETE FROM \"ReservedTables\" WHERE \"ReservationId\" = {reservationId}");
             _appDbContext.SaveChanges();
             return Ok();
         }

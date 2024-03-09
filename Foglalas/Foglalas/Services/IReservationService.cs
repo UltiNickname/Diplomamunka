@@ -1,4 +1,5 @@
 ﻿using Foglalas.Models;
+using Microsoft.UI.Composition.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace Foglalas.Services
     {
         public Task<string> Reserve(Reservation reservation);
         public Task<List<Reservation>> Reservations(int userId);
-        public Task Delete(Reservation reservation);
+        public Task<bool> Delete(int id);
     }
 }

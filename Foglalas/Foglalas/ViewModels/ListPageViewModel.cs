@@ -40,7 +40,11 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task DeleteReservation()
         {
-            SelectedReservation
+            bool isDeleted = await reservationService.Delete(SelectedReservation.Restaurant.RestaurantId);
+            if(isDeleted)
+                await Shell.Current.DisplayAlert("Siker!", "Sikeresen lemondta a foglalást!", "OK");
+            else
+                await Shell.Current.DisplayAlert("Error!", "Valami hiba lépett fel", "OK");
         }
     }
 }

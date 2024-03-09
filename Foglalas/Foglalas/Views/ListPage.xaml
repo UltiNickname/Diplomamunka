@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Foglalas.Views.ListPage"
              xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
-             x:DataType="viewmodel:ListPageViewModel"
              Title="Főoldal">
     <VerticalStackLayout Background="#36454F">
         <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" Background="#36454F" SeparatorColor="#F4F3EE">
