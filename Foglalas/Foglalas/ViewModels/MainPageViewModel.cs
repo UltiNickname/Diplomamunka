@@ -226,6 +226,12 @@ namespace Foglalas.ViewModels
             IsTimeOkayR = !IsTimeOkay;
         }
 
+        public async Task<bool> HasThatTable(int id, int size)
+        {
+            bool hasSize = await cityService.HasGiveSize(id, size);
+            return hasSize;
+        }
+
         public async void SeperateRoomAvailable(int id, DateOnly date)
         {
             IsSeperateRoomAvailable = await cityService.SeperateRoomAvailability(id, date);
@@ -234,7 +240,7 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task MakeReservation()
         {
-            
+            if(SelectedRestaurant.FixedTables == true)
             if (SelectedCity != null && SelectedRestaurant != null && GivenName != null && GivenSize != null)
             {
                 SeperateRoomAvailable(SelectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate));

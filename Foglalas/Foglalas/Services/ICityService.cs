@@ -14,5 +14,6 @@ namespace Foglalas.Services
         public Task<int> MaxCapacity(int id);
         public Task<int> CurrentCapacity(int id, DateOnly date, TimeSpan start, TimeSpan finish);
         public Task<bool> SeperateRoomAvailability(int id, DateOnly date);
+        public Task<bool> HasGiveSize(int id, int size);
     }
 }
