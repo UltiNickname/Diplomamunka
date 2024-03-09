@@ -102,18 +102,21 @@
                         FontAttributes="Italic"
                         TextColor="Red"
                         Margin="10,5,0,5"/>
-                    <Label
+                    <HorizontalStackLayout>
+                        <Image
                         IsVisible="{Binding IsAnimalFriendly}"
-                        Text="(Állatbarát hely)"
-                        FontAttributes="Bold"
-                        FontSize="15"
-                        Margin="10,5,0,5"/>
-                    <Label
+                        Source="Animal.png"
+                        HeightRequest="80"
+                        HorizontalOptions="Start"
+                        />
+                        <Image
                         IsVisible="{Binding SzepCard}"
-                        Text="(SZÉP kártya elfogadó hely)"
-                        FontAttributes="Bold"
-                        FontSize="15"
-                        Margin="10,5,0,5"/>
+                        Source="szep_card.jpg"
+                        HeightRequest="80"
+                        HorizontalOptions="Start"
+                        />
+                    </HorizontalStackLayout>
+                    
                 </VerticalStackLayout>
             </Frame>
             <Frame Margin="10,0,0,0" BackgroundColor="#8D80AD">
