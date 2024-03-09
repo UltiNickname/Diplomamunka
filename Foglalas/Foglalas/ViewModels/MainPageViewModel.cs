@@ -83,8 +83,19 @@ namespace Foglalas.ViewModels
         [ObservableProperty]
         private string _givenName;
 
-        [ObservableProperty]
         private DateTime _pickedDate;
+        public DateTime PickedDate
+        {
+            get => _pickedDate;
+            set
+            {
+                if (_pickedDate != value)
+                {
+                    _pickedDate = value;
+                    GetCapacity(_selectedRestaurant.RestaurantId, DateOnly.FromDateTime(PickedDate), PickedStartTime, PickedEndTime);
+                }
+            }
+        }
 
         private TimeSpan _pickedStartTime;
         public TimeSpan PickedStartTime
@@ -265,7 +276,7 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task MakeReservation()
         {
-            if (int.Parse(GivenSize) < CurrentCapacity || GivenTable < CurrentCapacity)
+            if (int.Parse(GivenSize) > CurrentCapacity || GivenTable > CurrentCapacity)
             {
                 await Shell.Current.DisplayAlert("Sajnáljuk!", "Az étterem nem tud ekkora társaságot az Ön által megadott időpontban.", "OK");
                 return;
