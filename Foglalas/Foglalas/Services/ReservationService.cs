@@ -76,5 +76,36 @@ namespace Foglalas.Services
                 throw ex.InnerException;
             }
         }
+
+        public async Task<bool> Delete(Reservation reservation)
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/reservation/Delete";
+                    client.BaseAddress = new Uri(url);
+                    var body = JsonConvert.SerializeObject(reservation);
+                    HttpResponseMessage response = await client.PostAsJsonAsync(url, body);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
     }
 }

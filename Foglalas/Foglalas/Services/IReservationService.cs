@@ -11,5 +11,6 @@ namespace Foglalas.Services
     {
         public Task<string> Reserve(Reservation reservation);
         public Task<List<Reservation>> Reservations(int userId);
+        public Task Delete(Reservation reservation);
     }
 }

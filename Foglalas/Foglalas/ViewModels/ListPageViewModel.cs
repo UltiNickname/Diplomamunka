@@ -16,6 +16,9 @@ namespace Foglalas.ViewModels
 {
     public partial class ListPageViewModel : BaseViewModel
     {
+        [ObservableProperty]
+        private Reservation _selectedReservation;
+
         readonly IReservationService reservationService = new ReservationService();
         public ObservableRangeCollection<Reservation> Reservations { get; set; } = new();
         public ListPageViewModel(IReservationService reservationService)
@@ -32,6 +35,12 @@ namespace Foglalas.ViewModels
             if (Reservations.Count > 0)
                 Reservations.Clear();
             Reservations.AddRange(reservations);
+        }
+
+        [RelayCommand]
+        public async Task DeleteReservation()
+        {
+            SelectedReservation
         }
     }
 }

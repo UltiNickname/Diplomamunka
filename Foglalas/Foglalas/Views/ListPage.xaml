@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Foglalas.Views.ListPage"
+             xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
+             x:DataType="viewmodel:ListPageViewModel"
              Title="Főoldal">
     <VerticalStackLayout Background="#36454F">
-        <ListView ItemsSource="{Binding Reservations}" Background="#36454F" SeparatorColor="#F4F3EE">
+        <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" Background="#36454F" SeparatorColor="#F4F3EE">
             <ListView.Header>
                 <StackLayout BackgroundColor="#8D80AD">
                     <Label Margin="10,0,0,0"
@@ -73,7 +75,7 @@
                                    TextColor="#F4F3EE"/>
                             <Label Grid.Row="2"
                                    Grid.Column="7"
-                                   Text="Foglalás neve"
+                                   Text="{Binding Name}"
                                    VerticalOptions="End"
                                    TextColor="#F4F3EE"
                                    FontSize="12"/>
@@ -82,5 +84,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button BackgroundColor="#8D80AD" Text="Foglalás" Command="{Binding DeleteReservationCommand}" IsEnabled="{Binding IsTimeOkay}"/>
     </VerticalStackLayout>
 </ContentPage>
