@@ -56,7 +56,7 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public async Task ToSignUp()
         {
-            await Shell.Current.GoToAsync($"//{nameof(SignUpPage)}");
+            await Shell.Current.GoToAsync(nameof(SignUpPage));
         }
     }
 }
