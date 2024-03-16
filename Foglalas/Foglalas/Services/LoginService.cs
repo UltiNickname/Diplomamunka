@@ -21,7 +21,7 @@ namespace Foglalas.Services
                 {
                     var userInfo = new List<User>();
                     var client = new HttpClient();
-                    string url = "http://192.168.0.80:8099/api/User/Login" + email + "/" + password;
+                    string url = "https://foglalasapi20240316154136.azurewebsites.net/api/user/Login" + email + "/" + password;
                     client.BaseAddress = new Uri(url);
                     HttpResponseMessage response = await client.GetAsync("");
                     if(response.IsSuccessStatusCode)
