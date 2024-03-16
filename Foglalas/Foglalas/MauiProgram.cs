@@ -37,8 +37,6 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<SignUpPage>();
 		builder.Services.AddSingleton<SignUpPageViewModel>();
-
-        builder.Services.AddSingleton<AdminPage>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

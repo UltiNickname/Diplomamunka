@@ -39,7 +39,6 @@ namespace FoglalasAPI.Controllers
                         Email = u.Email,
                         Username = u.Username,
                         Password = u.Password,
-                        isAdmin = u.isAdmin
                     }).ToList();
         }
 
