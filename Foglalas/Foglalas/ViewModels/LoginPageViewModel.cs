@@ -38,6 +38,7 @@ namespace Foglalas.ViewModels
                     string userDetails = JsonSerializer.Serialize(userInfo);
                     Preferences.Set(nameof(App.User), userDetails);
                     App.User = userInfo;
+
                     await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
                 }
                 else

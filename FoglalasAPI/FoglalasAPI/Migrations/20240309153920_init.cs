@@ -46,7 +46,8 @@ namespace FoglalasAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Username = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false)
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    isAdmin = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,6 +61,7 @@ namespace FoglalasAPI.Migrations
                     RestaurantId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    UserFK = table.Column<int>(type: "integer", nullable: false),
                     CityFK = table.Column<int>(type: "integer", nullable: false),
                     Opening = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     Closing = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
@@ -71,8 +73,7 @@ namespace FoglalasAPI.Migrations
                     AnimalFriendly = table.Column<bool>(type: "boolean", nullable: false),
                     SzepKartyaAvailable = table.Column<bool>(type: "boolean", nullable: false),
                     ClosedOnMonday = table.Column<bool>(type: "boolean", nullable: false),
-                    ClosedOnSunday = table.Column<bool>(type: "boolean", nullable: false),
-                    ClosedOnHoliday = table.Column<bool>(type: "boolean", nullable: false)
+                    ClosedOnSunday = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,6 +83,12 @@ namespace FoglalasAPI.Migrations
                         column: x => x.CityFK,
                         principalTable: "Cities",
                         principalColumn: "CityId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Restaurants_Users_UserFK",
+                        column: x => x.UserFK,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -192,6 +199,11 @@ namespace FoglalasAPI.Migrations
                 column: "CityFK");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Restaurants_UserFK",
+                table: "Restaurants",
+                column: "UserFK");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantTables_RestaurantId",
                 table: "RestaurantTables",
                 column: "RestaurantId");
@@ -221,10 +233,10 @@ namespace FoglalasAPI.Migrations
                 name: "Restaurants");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Users");
         }
     }
 }

@@ -32,6 +32,7 @@ namespace FoglalasAPI.Controllers
                     {
                         RestaurantId = r.RestaurantId,
                         Name = r.Name,
+                        User = r.User,
                         City = r.City,
                         Opening = r.Opening,
                         Closing = r.Closing,
@@ -127,6 +128,7 @@ namespace FoglalasAPI.Controllers
             {
                 RestaurantId = restaurant.RestaurantId,
                 Name = restaurant.Name,
+                User = _appDbContext.Users.Find(restaurant.User.UserId),
                 City = _appDbContext.Cities.Find(restaurant.City.CityId),
                 Opening = restaurant.Opening,
                 Closing = restaurant.Closing,

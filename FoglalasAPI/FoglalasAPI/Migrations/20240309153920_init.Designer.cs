@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FoglalasAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240316121947_init")]
+    [Migration("20240309153920_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -119,9 +119,6 @@ namespace FoglalasAPI.Migrations
                     b.Property<int>("CityFK")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("ClosedOnHoliday")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("ClosedOnMonday")
                         .HasColumnType("boolean");
 
@@ -157,9 +154,14 @@ namespace FoglalasAPI.Migrations
                     b.Property<bool>("SzepKartyaAvailable")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("UserFK")
+                        .HasColumnType("integer");
+
                     b.HasKey("RestaurantId");
 
                     b.HasIndex("CityFK");
+
+                    b.HasIndex("UserFK");
 
                     b.ToTable("Restaurants");
                 });
@@ -218,6 +220,9 @@ namespace FoglalasAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("isAdmin")
+                        .HasColumnType("boolean");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
@@ -269,7 +274,15 @@ namespace FoglalasAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FoglalasAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("City");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FoglalasAPI.Models.RestaurantTables", b =>

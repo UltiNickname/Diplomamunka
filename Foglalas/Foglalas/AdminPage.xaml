@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Foglalas.Views.ListPage"
+             xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
+             Title="Főoldal">
+    <VerticalStackLayout Background="#36454F">
+        <!--Felhasználók-->
+        <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" IsVisible="{Binding UserTable}" SelectionMode="Single" Background="#36454F" SeparatorColor="#F4F3EE">
+            <ListView.Header>
+                <StackLayout BackgroundColor="#8D80AD">
+                    <Label Margin="10,0,0,0"
+                           Text="Felhasználók"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#F4F3EE"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Username}"
+                                   FontAttributes="Bold"
+                                   TextColor="#F4F3EE"
+                                   FontSize="20"/>
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding Email}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--Éttermek-->
+        <ListView ItemsSource="{Binding Restaurants}" SelectedItem="{Binding SelectedRestaurant}" IsVisible="{Binding RestaurantsTable}" SelectionMode="Single" Background="#36454F" SeparatorColor="#F4F3EE">
+            <ListView.Header>
+                <StackLayout BackgroundColor="#8D80AD">
+                    <Label Margin="10,0,0,0"
+                           Text="Felhasználók"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#F4F3EE"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   TextColor="#F4F3EE"
+                                   FontSize="20"/>
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding City.Name}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--Városok-->
+        <ListView ItemsSource="{Binding Cities}" SelectedItem="{Binding SelectedCity}" IsVisible="{Binding CitiesTable}" SelectionMode="Single" Background="#36454F" SeparatorColor="#F4F3EE">
+            <ListView.Header>
+                <StackLayout BackgroundColor="#8D80AD">
+                    <Label Margin="10,0,0,0"
+                           Text="Felhasználók"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#F4F3EE"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   TextColor="#F4F3EE"
+                                   FontSize="20"/>
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding City.Name}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--Foglalások-->
+        <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" IsVisible="{Binding ReservationsTable}" SelectionMode="Single" Background="#36454F" SeparatorColor="#F4F3EE">
+            <ListView.Header>
+                <StackLayout BackgroundColor="#8D80AD">
+                    <Label Margin="10,0,0,0"
+                           Text="Felhasználók"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#F4F3EE"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   TextColor="#F4F3EE"
+                                   FontSize="20"/>
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding City.Name}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--Tables-->
+        <ListView ItemsSource="{Binding Tables}" SelectedItem="{Binding SelectedTable}" IsVisible="{Binding TablesTable}" SelectionMode="Single" Background="#36454F" SeparatorColor="#F4F3EE">
+            <ListView.Header>
+                <StackLayout BackgroundColor="#8D80AD">
+                    <Label Margin="10,0,0,0"
+                           Text="Felhasználók"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#F4F3EE"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   TextColor="#F4F3EE"
+                                   FontSize="20"/>
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="{Binding City.Name}"
+                                   FontAttributes="Italic"
+                                   VerticalOptions="End"
+                                   TextColor="#F4F3EE"
+                                   Margin="0, 0, 10, 0"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <HorizontalStackLayout>
+            <Button BackgroundColor="#8D80AD" Text="Foglalás lemondása" Command="{Binding DeleteReservationCommand}" Margin="0,10,0,0"/>
+            <Button BackgroundColor="#8D80AD" Text="Lista frissítése" Command="{Binding RefreshCommand}" Margin="0,10,0,0"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
