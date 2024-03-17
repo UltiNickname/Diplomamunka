@@ -313,6 +313,10 @@ namespace Foglalas.ViewModels
                 }
                 else
                 {
+                    if(CurrentCapacity<MaxCapacity*0.15)
+                    {
+                        await Shell.Current.DisplayAlert("Figyelem!", "Az étteremben kevés hely érhető el. Javasoljuk lépjen kapcsolatba velük telefonon is.", "OK");
+                    }
                     if (PickedDate == default(DateTime))
                     {
                         PickedDate = MinDate;
