@@ -59,7 +59,7 @@ namespace Foglalas.ViewModels
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Hiba!", "A felhasználó a megadott email címmel már létezik", "OK");
+                    await Shell.Current.DisplayAlert("Hiba!", "A felhasználó a megadott email címmel már létezik vagy más hiba lépett fel.", "OK");
                 }
             }
             else
