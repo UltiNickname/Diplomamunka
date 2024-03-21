@@ -102,7 +102,7 @@
                         FontAttributes="Bold"
                         Margin="10,5,0,5"/>
                     <Label
-                        IsVisible="{Binding ClosedMonday}"
+                        IsVisible="{Binding ClosedSunday}"
                         Text="Vasárnap: ZÁRVA"
                         FontAttributes="Bold"
                         Margin="10,5,0,5"/>
