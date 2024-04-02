@@ -1,5 +1,4 @@
 ﻿using Foglalas.Models;
-using Microsoft.UI.Composition.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
