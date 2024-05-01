@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Foglalas.Views;
+using Syncfusion.Maui.Core.Carousel;
 
 namespace Foglalas.ViewModels
 {
@@ -48,7 +49,9 @@ namespace Foglalas.ViewModels
                     if (_selectedRestaurant != null)
                     {
                         IsTerraceEnable = _selectedRestaurant.Outdoor;
+                        Terrace = false;
                         IsSeperateRoomEnable = _selectedRestaurant.SeperateRoom;
+                        SeperateRoom = false;
                         IsAnimalFriendly = _selectedRestaurant.AnimalFriendly;
                         HasMenu = _selectedRestaurant.Menu;
                         HasFixedTables = _selectedRestaurant.FixedTables;
@@ -255,6 +258,7 @@ namespace Foglalas.ViewModels
             MaxCapacity = await cityService.MaxCapacity(id);
             CurrentCapacity = await cityService.CurrentCapacity(id, date, start, finish);
         }
+
         public void CheckTime()
         {
             IsNearClosing = false;
@@ -283,6 +287,13 @@ namespace Foglalas.ViewModels
         }
 
         public async Task<int> TableAvailable(int id, int size, DateOnly date, TimeSpan start, TimeSpan finish) => TableNumber = await cityService.AvailableTable(id, size, date, start, finish);
+
+        [RelayCommand]
+        public void Reset()
+        {
+            Terrace = false;
+            SeperateRoom = false;
+        }
 
         [RelayCommand]
         public async Task MakeReservation()

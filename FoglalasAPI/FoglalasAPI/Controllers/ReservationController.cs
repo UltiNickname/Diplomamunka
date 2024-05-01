@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using Table = FoglalasAPI.Models.Table;
 
 namespace FoglalasAPI.Controllers
@@ -105,7 +107,7 @@ namespace FoglalasAPI.Controllers
                                            join t in _appDbContext.Tables on rtt.TableId equals t.TableId
                                            join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
                                            join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
-                                           where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId
+                                           where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId && rv.Date == reservation.Date && (rv.StartTime < reservation.FinishedTime && rv.FinishedTime > reservation.StartTime)
                                            group new { RestaurantTableCount = rtt.Count, ReservedTableCount = rvt.Count }
                                            by new { restaurantTableCount = rtt.Count, reservedTableCount = rvt.Count } into g
                                            orderby g.Key.restaurantTableCount descending

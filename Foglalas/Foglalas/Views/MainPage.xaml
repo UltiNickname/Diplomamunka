@@ -112,6 +112,12 @@
                         FontAttributes="Italic"
                         TextColor="Red"
                         Margin="10,5,0,5"/>
+                    <Label
+                        IsVisible="{Binding IsSeperateRoomAvailable}"
+                        Text="A különtermet 15-20 fős társaságok vehetik igénybe!"
+                        FontAttributes="Italic"
+                        TextColor="Red"
+                        Margin="10,5,0,5"/>
                     <HorizontalStackLayout>
                         <Image
                         IsVisible="{Binding IsAnimalFriendly}"
@@ -145,6 +151,9 @@
                         IsChecked="{Binding SeperateRoom}"
                         GroupName="Positions"
                         Margin="10,0,0,0"/>
+                    <HorizontalStackLayout>
+                        <Button WidthRequest="100" BackgroundColor="#36454F" Text="Mégsem" Command="{Binding ResetCommand}"/>
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame>
             <HorizontalStackLayout>
@@ -170,7 +179,7 @@
                     TitleColor="{OnPlatform White, Android=Black, WinUI=White}"/>
                 <Label Text=" főre foglalok asztalt" Margin="0,20" FontAttributes="Bold" TextColor="#F4F3EE"/>
             </HorizontalStackLayout>
-            <Label Text="Milyen néver lesz a foglalás?" Margin="10" TextColor="#F4F3EE"/>
+            <Label Text="Milyen néven lesz a foglalás?" Margin="10" TextColor="#F4F3EE"/>
             <Entry
                 Background="White"
                 x:Name="NameEntry" 
