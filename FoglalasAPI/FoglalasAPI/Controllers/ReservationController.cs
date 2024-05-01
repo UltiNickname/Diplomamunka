@@ -103,22 +103,28 @@ namespace FoglalasAPI.Controllers
                 foreach (Table table in tables)
                 {
                     num = 0;
-                    var availableTables = (from rtt in _appDbContext.RestaurantTables
+                    var availableTablesSQL = (from rtt in _appDbContext.RestaurantTables
                                            join t in _appDbContext.Tables on rtt.TableId equals t.TableId
                                            join rv in _appDbContext.Reservations on rtt.RestaurantId equals rv.Restaurant.RestaurantId
-                                           join rvt in _appDbContext.ReservedTables on rv.ReservationId equals rvt.ReservationId
-                                           where t.TableId == table.TableId && rtt.TableId == table.TableId && rtt.RestaurantId == rv.Restaurant.RestaurantId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId && (rv.Date == reservation.Date && (rv.StartTime < reservation.StartTime || rv.FinishedTime > reservation.FinishedTime))
+                                           join rvt in _appDbContext.ReservedTables on t.TableId equals rvt.TableId
+                                           where t.TableId == table.TableId && rtt.TableId == table.TableId && rv.ReservationId == rvt.ReservationId && rvt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId && (rv.Date == reservation.Date && (rv.StartTime < reservation.StartTime || rv.FinishedTime > reservation.FinishedTime))
                                            group new { RestaurantTableCount = rtt.Count, ReservedTableCount = rvt.Count }
                                            by new { restaurantTableCount = rtt.Count, reservedTableCount = rvt.Count } into g
                                            orderby g.Key.restaurantTableCount descending
                                            select g.Key.restaurantTableCount - g.Sum(x => x.ReservedTableCount)).ToList();
+                    int availableTables = 0;
+                    if(availableTablesSQL.Count > 0)
+                    {
+                        availableTables = availableTablesSQL.First();
+                    }
 
                     var restaurantTable = (from rtt in _appDbContext.RestaurantTables where rtt.TableId == table.TableId && rtt.RestaurantId == reservation.Restaurant.RestaurantId select rtt.Count).ToList();
 
-                    while (size > 0 && size >= table.Size && (availableTables.Count() == 0 || availableTables.First() > 0) && restaurantTable.Count() != 0)
+                    while (size > 0 && size >= table.Size && (availableTablesSQL.Count() == 0 || availableTables > 0) && restaurantTable.Count() != 0)
                     {
                         num++;
                         size -= table.Size;
+                        availableTables--;
                     }
                     if (num > 0)
                         _appDbContext.Database.ExecuteSqlRaw($"INSERT INTO \"ReservedTables\"(\"ReservationId\",\"TableId\",\"Count\") VALUES ({dbReservation.ReservationId},{table.TableId},{num})");
