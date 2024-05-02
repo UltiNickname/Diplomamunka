@@ -77,6 +77,39 @@ namespace Foglalas.Services
             }
         }
 
+        public async Task<List<Reservation>> RestaurantReservations(int restaurantId)
+        {
+            try
+            {
+                if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var reservationList = new List<Reservation>();
+                    var client = new HttpClient();
+                    string url = "http://192.168.0.80:8099/api/reservation/GetRestaurantAll/" + restaurantId.ToString();
+                    client.BaseAddress = new Uri(url);
+                    HttpResponseMessage response = await client.GetAsync("");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        reservationList = JsonConvert.DeserializeObject<List<Reservation>>(json);
+                        return reservationList;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex.InnerException;
+            }
+        }
+
         public async Task<bool> Delete(int id)
         {
             try

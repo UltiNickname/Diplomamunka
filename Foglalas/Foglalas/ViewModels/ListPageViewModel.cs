@@ -11,20 +11,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Microsoft.Maui.Handlers;
 
 namespace Foglalas.ViewModels
 {
     public partial class ListPageViewModel : BaseViewModel
     {
         [ObservableProperty]
-        private Reservation _selectedReservation;
+        private Reservation _selectedReservation; 
 
         readonly IReservationService reservationService = new ReservationService();
         public ObservableRangeCollection<Reservation> Reservations { get; set; } = new();
         public ListPageViewModel(IReservationService reservationService)
         {
-            LoadReservations();
+            if(App.User.Email=="gallonero@gmail.com")
+            {
+                LoadRestaurantReservations();
+            }
+            else
+            {
+                LoadReservations();
+            }
             this.reservationService = reservationService;
+        }
+        private async void LoadRestaurantReservations()
+        {
+            var reservations = await reservationService.RestaurantReservations(2);
+            if (reservations == null)
+                return;
+            if (Reservations.Count > 0)
+                Reservations.Clear();
+            Reservations.AddRange(reservations);
         }
 
         private async void LoadReservations()
@@ -51,7 +68,14 @@ namespace Foglalas.ViewModels
         [RelayCommand]
         public void Refresh()
         {
-            LoadReservations();
+            if (App.User.Email == "gallonero@gmail.com")
+            {
+                LoadRestaurantReservations();
+            }
+            else
+            {
+                LoadReservations();
+            }
         }
     }
 }

@@ -74,6 +74,27 @@ namespace FoglalasAPI.Controllers
                     }).ToList();
         }
 
+        [HttpGet]
+        [Route("GetRestaurantAll/{restaurantId}")]
+        public IEnumerable<Reservation> GetRestaurantAllReservations(int restaurantId)
+        {
+            return (from r in _appDbContext.Reservations
+                    where r.Restaurant.RestaurantId == restaurantId
+                    select new Reservation
+                    {
+                        ReservationId = r.ReservationId,
+                        Restaurant = r.Restaurant,
+                        User = r.User,
+                        Name = r.Name,
+                        Size = r.Size,
+                        Date = r.Date,
+                        StartTime = r.StartTime,
+                        FinishedTime = r.FinishedTime,
+                        Outdoor = r.Outdoor,
+                        SeperateRoom = r.SeperateRoom
+                    }).ToList();
+        }
+
         [HttpPost]
         [Route("AddNewReservation")]
         public async Task<IActionResult> SaveReservation(Reservation reservation)
