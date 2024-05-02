@@ -68,6 +68,9 @@ namespace Foglalas.ViewModels
                         GivenTable = 0;
                         if (HasFixedTables)
                             LoadTables(_selectedRestaurant.RestaurantId);
+                        IsRestaurantEnabled = false;
+                        Thread.Sleep(100);
+                        IsRestaurantEnabled = true;
                     }
                 }
             }
