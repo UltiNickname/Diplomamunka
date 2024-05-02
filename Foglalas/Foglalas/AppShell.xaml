@@ -21,7 +21,7 @@
 
     <Shell.FlyoutFooter>
         <StackLayout>
-            <Button Text="Kijelentkezés"/>
+            <Button Text="Kijelentkezés" Command="{Binding SignOutCommand}"/>
         </StackLayout>
     </Shell.FlyoutFooter>
     
