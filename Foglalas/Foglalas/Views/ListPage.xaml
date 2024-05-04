@@ -5,7 +5,7 @@
              xmlns:viewmodel="clr-namespace:Foglalas.ViewModels"
              Title="Főoldal">
     <VerticalStackLayout Background="#36454F">
-        <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" SelectionMode="Single" Background="#8D80AD" SeparatorColor="#F4F3EE">
+        <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation}" SelectionMode="Single" Background="#8D80AD" SeparatorColor="#F4F3EE" HeightRequest="330" RowHeight="80">
             <ListView.Header>
                 <StackLayout BackgroundColor="#8D80AD">
                     <Label Margin="10,0,0,0"
